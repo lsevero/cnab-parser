@@ -1,6 +1,5 @@
 (ns cnab-parser.core
-  (:require [yaml.core :as yaml]
-            [clojure.java.io :as io]
+  (:require [clojure.java.io :as io]
             [clojure.string :as s]))
 
 (defn make-cnab-parser
