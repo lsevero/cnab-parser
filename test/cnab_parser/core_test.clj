@@ -7,9 +7,9 @@
 (deftest make-cnab-parser-test
   (testing "Testando o make-cnab-parser"
     (let [{{:keys [header_arquivo trailer_arquivo detalhes]} :retorno :as parser} (make-cnab-parser
-                                                                    (-> "itau/cnab400/cobranca.yml"
-                                                                        io/resource
-                                                                        io/file))] 
+                                                                                    (-> "itau400.edn"
+                                                                                        io/resource
+                                                                                        io/file))] 
       (is (true? (and (contains? parser :servico)
                       (contains? parser :versao)
                       (contains? parser :layout)
@@ -33,3 +33,23 @@
 (deftest parse-cnab-test
   (testing "testando os multimetodos default"
     (is (thrown? ExceptionInfo (parse-cnab "" :nubank400 :retorno)) "Chamando um multimetodo que nao existe")))
+
+(deftest try-fns-test
+  (testing "testando o helper try-fns para operações que podem levantar exceções sequenciais"
+    (let [{:keys [fn-pos res args]} (try-fns [#(throw (ex-info % {}))
+                                            #(throw (ex-info % {:b 1}))
+                                            #(do %)] ["lol"])]
+      (is (= fn-pos 2))
+      (is (= res "lol"))
+      (is (= args ["lol"])))
+    (is (nil? (try-fns [#(throw (ex-info % {:a 1}))
+                       #(throw (ex-info % {:b 2}))
+                       #(throw (ex-info % {:c 3}))] ["all fail"])))))
+
+(deftest tey-args-test
+  (testing "testando o helper try-args para operações que podem levantar exceções sequenciais"
+    (let [{:keys [args args-pos res]} (try-args #(/ 1 %) [[0] [0] [3]])]
+      (is (= args-pos 2))
+      (is (= res 1/3))
+      (is (= args [3])))
+    (is (nil? (try-args #(/ 1 %) [[0] [0] [0]])))))

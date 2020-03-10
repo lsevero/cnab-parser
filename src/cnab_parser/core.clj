@@ -1,13 +1,15 @@
 (ns cnab-parser.core
   (:require [clojure.java.io :as io]
-            [clojure.string :as s]))
+            [clojure.string :as s]
+            [clojure.edn :as edn]
+            ))
 
 (defn make-cnab-parser
-  "Cria um parser de cnab a partirda sua espeficicação em YAML
+  "Cria um parser de cnab a partirda sua espeficicação em edn
 
   Precisa seguir o formato estabelecido em https://github.com/lsevero/cnab-layouts
 
-  path: caminho para o yaml de especificação do cnab
+  path: caminho para o edn de especificação do cnab
   retorno: um mapa contendo a espeficicação do contendo tanto o retorno e a remessa
   "
   [path]
@@ -15,7 +17,7 @@
             (apply merge (map (fn [[k v]] v) detalhes)))]
     (let [{{detalhes_remessa :detalhes} :remessa
            {detalhes_retorno :detalhes} :retorno
-           :as spec} (yaml/from-file path)]
+           :as spec} (-> path slurp edn/read-string)]
       (-> spec
           (assoc-in [:remessa :detalhes] (process-detalhes detalhes_remessa))
           (assoc-in [:retorno :detalhes] (process-detalhes detalhes_retorno))))))
@@ -35,20 +37,23 @@
               (contains? spec :pos))
          (= (- end (dec begin))
             (apply + (map #(Long/parseLong (% 1)) (re-seq #"\((\d+)\)" picture))))]}
-  (let [field (subs cnab-part (dec begin) end)]
-    (cond
-      (s/starts-with? picture "9")
-      (if (s/includes? picture "V")
-        (let [[[_ size1] [_ _]] (re-seq #"\((\d+)\)" picture)]
-          (Double/parseDouble (str (subs field 0 (Long/parseLong size1))
-                                   "."
-                                   (subs field (Long/parseLong size1)))))
-        (Long/parseLong field))
-      (s/starts-with? picture "X") field
-      :else (throw (ex-info "Picture não está definido nem como número (9) nem como string (X)"
-                            {:msg "Erro em picture"
-                             :pos pos
-                             :picture picture})))))
+  (try
+    (let [field (subs cnab-part (dec begin) end)]
+      (cond
+        (s/starts-with? picture "9")
+        (if (s/includes? picture "V")
+          (let [[[_ size1] [_ _]] (re-seq #"\((\d+)\)" picture)]
+            (Double/parseDouble (str (subs field 0 (Long/parseLong size1))
+                                     "."
+                                     (subs field (Long/parseLong size1)))))
+          (Long/parseLong field))
+        (s/starts-with? picture "X") field
+        :else (throw (ex-info "Picture não está definido nem como número (9) nem como string (X)"
+                              {:msg "Erro em picture"
+                               :pos pos
+                               :picture picture}))))
+    (catch Exception e (println "Error parsing " (ex-message e) " pos " pos " picture " picture))
+    ))
 
 (defn- dispatch
   [cnab padrao cnab-type]
@@ -108,7 +113,45 @@
                      :padrao padrao
                      :cnab-type cnab-type})))) 
 
+
+(defn try-fns
+  "Receives a list of functions and a list of args and iterate applying each functions to args,
+  if the function throws an Exception, try the next one. Returns nil if all functions raises a exception."
+  ([fns args n]
+   (let [[head & tail] fns
+        random-sym (gensym)
+        ans (try (apply head args)
+                 (catch Exception e random-sym))]
+    (if (= ans random-sym)
+      (when-not (empty? tail)
+        (recur tail args (inc n)))
+      {:res ans
+       :fn head
+       :fn-pos n
+       :args args})))
+  ([fns args]
+   (try-fns fns args 0)))
+
+(defn try-args
+  "Receives a function and a list of list of args and iterate applying the function to each args,
+  if the function throws an Exception, try the next one. Returns nil if all functions raises a exception."
+  ([f args n]
+   (let [[head & tail] args
+        random-sym (gensym)
+        ans (try (apply f head)
+                 (catch Exception e random-sym))]
+    (if (= ans random-sym)
+      (when-not (empty? tail)
+        (recur f tail (inc n)))
+      {:res ans
+       :fn f
+       :args-pos n
+       :args head})))
+  ([f args]
+   (try-args f args 0)))
+
 (comment
+  (type (gensym))
   (do
     (def itau (spit (io/file "/tmp/itau400.edn") (yaml/from-file "/home/severo/Documentos/cnab-layouts/config/itau/cnab400/cobranca.yml") ))
     (apply merge (:remessa itau)))
@@ -116,8 +159,8 @@
   (def header (get-in itau [:remessa :header_arquivo]))
   (def spec {:header header
              :detalhes (apply merge (map (fn [[ k v]] v) detalhes))})
-  (make-cnab-parser "/home/severo/Documentos/cnab-layouts/config/itau/cnab400/cobranca.yml")
-  (type (make-cnab-parser (-> "itau/cnab400/cobranca.yml" io/resource io/file)))
+  (make-cnab-parser "/home/severo/Documentos/cnab-layouts/c")
+  (type (make-cnab-parser (-> "itau400.edn" io/resource io/file)))
 
   (->> (partition 400 (s/replace (slurp "/home/severo/Documentos/cnab-exemplo/CN14020A.RET") #"\r|\n" ""))
        (map (partial apply str))
