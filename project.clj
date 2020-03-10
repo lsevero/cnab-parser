@@ -8,5 +8,9 @@
   :profiles {:dev {:repl-options {:init-ns cnab-parser.core}
                    :global-vars {*warn-on-reflection* true}
                    :plugins [[cider/cider-nrepl "0.24.0"]]
+                   :source-paths ["src" "test"]
                    }}
+  :source-paths ["src"]
+  :resource-paths ["resources"]
+  :repl-options {:port 17001}
   )
