@@ -1,7 +1,8 @@
 (ns cnab-parser.core
   (:require [clojure.java.io :as io]
             [clojure.string :as s]
-            [clojure.edn :as edn]
+            [clojure.edn :as edn] 
+            [clojure.tools.logging :as log]
             ))
 
 (defn make-cnab-parser
@@ -13,14 +14,7 @@
   retorno: um mapa contendo a espeficicação do contendo tanto o retorno e a remessa
   "
   [path]
-  (letfn [(process-detalhes [detalhes]
-            (apply merge (map (fn [[k v]] v) detalhes)))]
-    (let [{{detalhes_remessa :detalhes} :remessa
-           {detalhes_retorno :detalhes} :retorno
-           :as spec} (-> path slurp edn/read-string)]
-      (-> spec
-          (assoc-in [:remessa :detalhes] (process-detalhes detalhes_remessa))
-          (assoc-in [:retorno :detalhes] (process-detalhes detalhes_retorno))))))
+  (-> path slurp edn/read-string))
 
 
 (defn split-cnab
@@ -52,7 +46,7 @@
                               {:msg "Erro em picture"
                                :pos pos
                                :picture picture}))))
-    (catch Exception e (println "Error parsing " (ex-message e) " pos " pos " picture " picture))
+    (catch Exception e (log/warn "Error parsing " (ex-message e) " pos " pos " picture " picture))
     ))
 
 (defn- dispatch
@@ -117,7 +111,7 @@
 (defn try-fns
   "Receives a list of functions and a list of args and iterate applying each functions to args,
   if the function throws an Exception, try the next one. Returns nil if all functions raises a exception."
-  ([fns args n]
+  ([fns args ^long n]
    (let [[head & tail] fns
         random-sym (gensym)
         ans (try (apply head args)
@@ -135,7 +129,7 @@
 (defn try-args
   "Receives a function and a list of list of args and iterate applying the function to each args,
   if the function throws an Exception, try the next one. Returns nil if all functions raises a exception."
-  ([f args n]
+  ([f args ^long n]
    (let [[head & tail] args
         random-sym (gensym)
         ans (try (apply f head)

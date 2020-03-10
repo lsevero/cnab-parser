@@ -37,14 +37,14 @@
 (deftest try-fns-test
   (testing "testando o helper try-fns para operações que podem levantar exceções sequenciais"
     (let [{:keys [fn-pos res args]} (try-fns [#(throw (ex-info % {}))
-                                            #(throw (ex-info % {:b 1}))
-                                            #(do %)] ["lol"])]
+                                              #(throw (ex-info % {:b 1}))
+                                              #(do %)] ["lol"])]
       (is (= fn-pos 2))
       (is (= res "lol"))
       (is (= args ["lol"])))
     (is (nil? (try-fns [#(throw (ex-info % {:a 1}))
-                       #(throw (ex-info % {:b 2}))
-                       #(throw (ex-info % {:c 3}))] ["all fail"])))))
+                        #(throw (ex-info % {:b 2}))
+                        #(throw (ex-info % {:c 3}))] ["all fail"])))))
 
 (deftest tey-args-test
   (testing "testando o helper try-args para operações que podem levantar exceções sequenciais"
