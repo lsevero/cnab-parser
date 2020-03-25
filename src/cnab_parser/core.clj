@@ -13,8 +13,8 @@
   path: caminho para o edn de especificação do cnab
   retorno: um mapa contendo a espeficicação do contendo tanto o retorno e a remessa
   "
-  [path]
-  (-> path slurp edn/read-string))
+  [content]
+  (edn/read-string content))
 
 
 (defn split-cnab

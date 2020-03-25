@@ -6,7 +6,7 @@
 (def ^:const ^:private itau400-parser
   (make-cnab-parser (-> "itau400.edn"
                         io/resource
-                        io/file)))
+                        slurp)))
 
 (defmethod parse-cnab-header-arquivo [:itau400 :retorno]
   [cnab padrao cnab-type]
