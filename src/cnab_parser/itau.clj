@@ -36,7 +36,6 @@
 
 
 (defmethod parse-cnab [:itau400 :retorno]
-  "Parses a cnab, cnab can be a string with the contents of the cnab or a Java File"
   [cnab padrao cnab-type]
   (let [[header & detalhes_trailer] (split-cnab (if (string? cnab)
                                                   cnab
