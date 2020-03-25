@@ -36,8 +36,11 @@
 
 
 (defmethod parse-cnab [:itau400 :retorno]
+  "Parses a cnab, cnab can be a string with the contents of the cnab or a Java File"
   [cnab padrao cnab-type]
-  (let [[header & detalhes_trailer] (split-cnab (slurp cnab) 400)
+  (let [[header & detalhes_trailer] (split-cnab (if (string? cnab)
+                                                  cnab
+                                                  (slurp cnab)) 400)
         {:keys [retorno]} itau400-parser
         detalhes (butlast detalhes_trailer)
         trailer (last detalhes_trailer)]
@@ -46,7 +49,8 @@
      :trailer_arquivo (parse-cnab-trailer-arquivo trailer padrao cnab-type)}
     ))
 
-(comment (-> (parse-cnab (io/file "/home/severo/Documentos/cnab-exemplo/CN02030A.RET")
+(comment (-> (parse-cnab (slurp "/home/severo/Documentos/cnab-exemplo/CN02030A.RET")
+               ;(io/file "/home/severo/Documentos/cnab-exemplo/CN02030A.RET")
                          :itau400
                          :retorno
                          )

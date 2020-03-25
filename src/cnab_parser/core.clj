@@ -44,9 +44,7 @@
       :else (throw (ex-info "Picture não está definido nem como número (9) nem como string (X)"
                             {:msg "Erro em picture"
                              :pos pos
-                             :picture picture}))))
-  )
-
+                             :picture picture}))))) 
 (defn- dispatch
   [cnab padrao cnab-type]
   [padrao cnab-type])
