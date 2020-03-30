@@ -47,7 +47,7 @@
                                :pos pos
                                :picture picture}))))
     (catch Exception e (do
-                         (log/debug "parse-cnab-field error! cnab-part: " cnab-part " spec: " spec " exception: " e)
+                         (log/debug "parse-cnab-field fail! cnab-part: " cnab-part " spec: " spec " exception: " e)
                          (throw e))))) 
 
 (defn- dispatch
