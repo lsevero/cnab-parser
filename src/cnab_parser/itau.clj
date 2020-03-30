@@ -16,7 +16,6 @@
 (defmethod parse-cnab-detalhes [:itau400 :retorno]
   [cnabs padrao cnab-type]
   (let [{{{:keys [segmento_1 segmento_4] :as detalhes} :detalhes} :retorno} itau400-parser]
-    #_(prn "seg1 " segmento_1)
     (letfn [(parse-detalhe [cnab map-spec]
               (into {} (map (fn [[k spec]] [k (parse-cnab-field cnab spec)]) map-spec)))
             (try-parse [cnab-unit]

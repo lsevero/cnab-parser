@@ -31,20 +31,25 @@
               (contains? spec :pos))
          (= (- end (dec begin))
             (apply + (map #(Long/parseLong (% 1)) (re-seq #"\((\d+)\)" picture))))]}
-  (let [field (subs cnab-part (dec begin) end)]
-    (cond
-      (s/starts-with? picture "9")
-      (if (s/includes? picture "V")
-        (let [[[_ size1] [_ _]] (re-seq #"\((\d+)\)" picture)]
-          (Double/parseDouble (str (subs field 0 (Long/parseLong size1))
-                                   "."
-                                   (subs field (Long/parseLong size1)))))
-        (Long/parseLong field))
-      (s/starts-with? picture "X") field
-      :else (throw (ex-info "Picture não está definido nem como número (9) nem como string (X)"
-                            {:msg "Erro em picture"
-                             :pos pos
-                             :picture picture}))))) 
+  (try
+    (let [field (subs cnab-part (dec begin) end)]
+      (cond
+        (s/starts-with? picture "9")
+        (if (s/includes? picture "V")
+          (let [[[_ size1] [_ _]] (re-seq #"\((\d+)\)" picture)]
+            (Double/parseDouble (str (subs field 0 (Long/parseLong size1))
+                                     "."
+                                     (subs field (Long/parseLong size1)))))
+          (Long/parseLong field))
+        (s/starts-with? picture "X") field
+        :else (throw (ex-info "Picture não está definido nem como número (9) nem como string (X)"
+                              {:msg "Erro em picture"
+                               :pos pos
+                               :picture picture}))))
+    (catch Exception e (do
+                         (log/debug "parse-cnab-field error! cnab-part: " cnab-part " spec: " spec " exception: " e)
+                         (throw e))))) 
+
 (defn- dispatch
   [cnab padrao cnab-type]
   [padrao cnab-type])
