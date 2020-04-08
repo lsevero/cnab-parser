@@ -3,6 +3,7 @@
             [clojure.string :as s]
             [clojure.edn :as edn] 
             [clojure.tools.logging :as log]
+            [clojure.test :refer [is]]
             ))
 
 (defn make-cnab-parser
@@ -27,10 +28,10 @@
   Levanta uma exceção caso o intervalo definido em :pos não tenha o mesmo tamanho que o definido em picture.
   "
   [^String cnab-part {picture :picture [begin end :as pos] :pos :as spec}]
-  {:pre [(and (contains? spec :picture)
-              (contains? spec :pos))
-         (= (- end (dec begin))
-            (apply + (map #(Long/parseLong (% 1)) (re-seq #"\((\d+)\)" picture))))]}
+  {:pre [(is (and (contains? spec :picture)
+              (contains? spec :pos)))
+         (is (= (- end (dec begin))
+            (apply + (map #(Long/parseLong (% 1)) (re-seq #"\((\d+)\)" picture)))))]}
   (try
     (let [field (subs cnab-part (dec begin) end)]
       (cond
