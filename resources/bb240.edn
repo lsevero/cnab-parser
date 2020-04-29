@@ -1,0 +1,509 @@
+{:servico "cobranca",
+ :versao "087",
+ :layout "cnab240",
+ :remessa
+ {:header_arquivo
+  {:numero_convenio {:pos [33 41], :picture "9(9)"},
+   :numero_carteira_cobranca {:pos [46 47], :picture "9(2)"},
+   :agencia_mantenedora_conta {:pos [53 57], :picture "9(5)"},
+   :densidade_gravacao_arquivo
+   {:pos [167 171], :picture "9(5)", :default 0},
+   :digito_verificador_agencia {:pos [58 58], :picture "X(1)"},
+   :reservado_empresa_01
+   {:pos [192 211], :picture "X(20)", :default ""},
+   :tipo_registro {:pos [8 8], :picture "9(1)", :default "0"},
+   :cobranca_cedente {:pos [42 45], :picture "9(4)"},
+   :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+   :digito_verificador_conta {:pos [71 71], :picture "X(1)"},
+   :data_geracao_arquivo {:pos [144 151], :picture "9(8)"},
+   :exclusivo_febraban_01 {:pos [9 17], :picture "X(9)", :default ""},
+   :tipo_inscricao_empresa {:pos [18 18], :picture "9(1)"},
+   :lote_servico {:pos [4 7], :picture "9(4)", :default "0000"},
+   :nome_empresa {:pos [73 102], :picture "X(30)"},
+   :reservado_banco_01 {:pos [172 191], :picture "X(20)", :default ""},
+   :exclusivo_febraban_02
+   {:pos [133 142], :picture "X(10)", :default ""},
+   :numero_sequencial_arquivo {:pos [158 163], :picture "9(6)"},
+   :nome_banco
+   {:pos [103 132], :picture "X(30)", :default "BANCO DO BRASIL S.A."},
+   :variacao_carteira_cobranca {:pos [48 50], :picture "9(3)"},
+   :exclusivo_febraban_03
+   {:pos [212 240], :picture "X(29)", :default ""},
+   :digito_verificador_agencia_conta {:pos [72 72], :picture "X(1)"},
+   :numero_inscricao_empresa {:pos [19 32], :picture "9(14)"},
+   :codigo_remessa_retorno {:pos [143 143], :picture "9(1)"},
+   :numero_conta_corrente {:pos [59 70], :picture "9(12)"},
+   :hora_geracao_arquivo {:pos [152 157], :picture "9(6)"},
+   :campo_reservado_bb {:pos [51 52], :picture "X(2)"},
+   :versao_layout_arquivo
+   {:pos [164 166], :picture "9(3)", :default "084"}},
+  :trailer_arquivo
+  {:codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+   :lote_servico {:pos [4 7], :picture "9(4)", :default "9999"},
+   :tipo_registro {:pos [8 8], :picture "9(1)", :default 9},
+   :exclusivo_febraban_01 {:pos [9 17], :picture "X(9)", :default ""},
+   :quantidade_lotes_arquivo {:pos [18 23], :picture "9(6)"},
+   :quantidade_registros_arquivo {:pos [24 29], :picture "9(6)"},
+   :quantidade_contas_conciliacao_lotes
+   {:pos [30 35], :picture "9(6)", :default 0},
+   :exclusivo_febraban_02
+   {:pos [36 240], :picture "X(205)", :default ""}},
+  :header_lote
+  {:data_gravacao {:pos [192 199], :picture "9(8)", :default 0},
+   :numero_convenio {:pos [34 42], :picture "9(9)"},
+   :numero_remessa_retorno {:pos [184 191], :picture "9(8)"},
+   :tipo_servico {:pos [10 11], :picture "9(2)", :default 1},
+   :numero_carteira_cobranca {:pos [47 48], :picture "9(2)"},
+   :agencia_mantenedora_conta {:pos [54 58], :picture "9(5)"},
+   :remessa_teste {:pos [52 53], :picture "X(2)", :default ""},
+   :digito_verificador_agencia {:pos [59 59], :picture "X(1)"},
+   :tipo_registro {:pos [8 8], :picture "9(1)", :default 1},
+   :data_credito {:pos [200 207], :picture "9(8)", :default 0},
+   :cobranca_cedente {:pos [43 46], :picture "9(4)"},
+   :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+   :digito_verificador_conta {:pos [72 72], :picture "X(1)"},
+   :exclusivo_febraban_01 {:pos [12 13], :picture "X(2)", :default ""},
+   :tipo_inscricao_empresa {:pos [18 18], :picture "9(1)"},
+   :lote_servico {:pos [4 7], :picture "9(4)"},
+   :mensagem_01 {:pos [104 143], :picture "X(40)", :default ""},
+   :nome_empresa {:pos [74 103], :picture "X(30)"},
+   :exclusivo_febraban_02 {:pos [17 17], :picture "X(1)", :default ""},
+   :variacao_carteira_cobranca {:pos [49 51], :picture "9(3)"},
+   :exclusivo_febraban_03
+   {:pos [208 240], :picture "X(33)", :default ""},
+   :digito_verificador_agencia_conta
+   {:pos [73 73], :picture "X(1)", :default ""},
+   :numero_inscricao_empresa {:pos [19 33], :picture "9(14)"},
+   :tipo_operacao {:pos [9 9], :picture "X(1)", :default "R"},
+   :numero_conta_corrente {:pos [60 71], :picture "9(12)"},
+   :mensagem_02 {:pos [144 183], :picture "X(40)", :default ""},
+   :versao_layout_lote
+   {:pos [14 16], :picture "9(3)", :default "043"}},
+  :trailer_lote
+  {:codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+   :lote_servico {:pos [4 7], :picture "9(4)"},
+   :tipo_registro {:pos [8 8], :picture "9(1)", :default "5"},
+   :quantidade_registros_lote {:pos [18 23], :picture "9(6)"},
+   :exclusivo_febraban_01
+   {:pos [24 240], :picture "X(217)", :default ""}},
+  :detalhes
+  {:segmento_q
+   {:bairro {:pos [114 128], :picture "X(15)"},
+    :sufixo_cep {:pos [134 136], :picture "9(3)"},
+    :nome {:pos [34 73], :picture "X(40)"},
+    :tipo_inscricao {:pos [18 18], :picture "9(1)"},
+    :nosso_numero_banco_correspondente
+    {:pos [213 232], :picture "X(20)", :default ""},
+    :tipo_registro {:pos [8 8], :picture "9(1)", :default 3},
+    :endereco {:pos [74 113], :picture "X(40)"},
+    :numero_registro {:pos [9 13], :picture "9(5)"},
+    :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+    :exclusivo_febraban_01
+    {:pos [15 15], :picture "X(1)", :default ""},
+    :lote_servico {:pos [4 7], :picture "9(4)"},
+    :exclusivo_febraban_02
+    {:pos [233 240], :picture "X(8)", :default ""},
+    :uf {:pos [152 153], :picture "X(2)"},
+    :numero_inscricao_cedente
+    {:pos [155 169], :picture "9(15)", :default 0},
+    :codigo_movimento_remessa
+    {:pos [16 17], :picture "9(2)", :default nil},
+    :numero_inscricao {:pos [19 33], :picture "9(15)"},
+    :codigo_banco_correspondente_compensacao
+    {:pos [210 212], :picture "9(3)", :default 0},
+    :tipo_inscricao_cedente
+    {:pos [154 154], :picture "9(1)", :default 0},
+    :codigo_segmento {:pos [14 14], :picture "X(1)", :default "Q"},
+    :cep {:pos [129 133], :picture "9(5)"},
+    :nome_sacador_avalista
+    {:pos [170 209], :picture "X(40)", :default ""},
+    :cidade {:pos [137 151], :picture "X(15)"}},
+   :segmento_y50
+   {:codigo_movimento {:pos [16 17], :picture "9(2)"},
+    :digito_agencia_conta_benef {:pos [99 99], :picture "X(1)"},
+    :valor {:pos [62 76], :picture "9(13)V9(2)"},
+    :numero_identificacao_titulo {:pos [40 59], :picture "X(20)"},
+    :qtde_dias_credito_benef {:pos [146 148], :picture "9(3)"},
+    :tipo_registro {:pos [8 8], :picture "9(1)", :default 3},
+    :conta_credito_beneficiario {:pos [86 97], :picture "9(12)"},
+    :numero_registro {:pos [9 13], :picture "9(5)"},
+    :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+    :digito_agencia_credito_benef {:pos [85 85], :picture "X(1)"},
+    :agencia_mantenedora {:pos [20 24], :picture "9(5)"},
+    :identificacao_parcela_rateio {:pos [140 145], :picture "X(6)"},
+    :codigo_calculo_rateio {:pos [60 60], :picture "9(1)"},
+    :exclusivo_febraban_01
+    {:pos [15 15], :picture "X(1)", :default ""},
+    :identificacao_rejeicoes {:pos [157 166], :picture "9(10)"},
+    :nome_beneficiario {:pos [100 139], :picture "X(40)"},
+    :lote_servico {:pos [4 7], :picture "9(4)"},
+    :identificacao_registro
+    {:pos [18 19], :picture "9(2)", :default 50},
+    :exclusivo_febraban_02
+    {:pos [167 240], :picture "X(74)", :default ""},
+    :data_credito_beneficiario {:pos [149 156], :picture "9(8)"},
+    :verificador_agencia_conta {:pos [39 39], :picture "X(1)"},
+    :numero_conta {:pos [26 37], :picture "9(12)"},
+    :codigo_banco_credito_benef {:pos [77 79], :picture "9(3)"},
+    :verificador_agencia_mantenedora {:pos [25 25], :picture "X(1)"},
+    :digito_conta_credito_benef {:pos [98 98], :picture "X(1)"},
+    :codigo_segmento {:pos [14 14], :picture "X(1)", :default "Y"},
+    :codigo_agencia_credito_benef {:pos [80 84], :picture "9(5)"},
+    :verificador_conta {:pos [38 38], :picture "X(1)"},
+    :tipo_valor {:pos [61 61], :picture "9(1)"}},
+   :segmento_r
+   {:codigo_desconto_02 {:pos [18 18], :picture "9(1)", :default 0},
+    :valor_desconto_02
+    {:pos [27 41], :picture "9(13)V9(2)", :default 0},
+    :verificador_conta_debito
+    {:pos [229 229], :picture "X(1)", :default ""},
+    :verificador_agencia_debito
+    {:pos [216 216], :picture "9(1)", :default 0},
+    :codigo_multa {:pos [66 66], :picture "9(1)", :default 0},
+    :data_multa {:pos [67 74], :picture "9(8)", :default 0},
+    :conta_debito {:pos [217 228], :picture "X(1)", :default ""},
+    :tipo_registro {:pos [8 8], :picture "9(1)", :default 3},
+    :numero_registro {:pos [9 13], :picture "9(5)"},
+    :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+    :codigo_agencia_debito
+    {:pos [211 215], :picture "9(5)", :default 0},
+    :verificador_agencia_conta_debito
+    {:pos [230 230], :picture "X(1)", :default ""},
+    :exclusivo_febraban_01
+    {:pos [15 15], :picture "X(1)", :default ""},
+    :codigo_banco_conta_debito
+    {:pos [208 210], :picture "9(3)", :default 0},
+    :data_desconto_03 {:pos [43 50], :picture "9(8)", :default 0},
+    :lote_servico {:pos [4 7], :picture "9(4)", :default nil},
+    :aviso_debito_automatico
+    {:pos [231 231], :picture "9(1)", :default 0},
+    :exclusivo_febraban_02
+    {:pos [180 199], :picture "X(20)", :default ""},
+    :codigo_movimento_remessa {:pos [16 17], :picture "9(2)"},
+    :informacao_sacado {:pos [90 99], :picture "X(10)", :default ""},
+    :exclusivo_febraban_03
+    {:pos [232 240], :picture "X(9)", :default ""},
+    :codigo_ocorrencia_sacado
+    {:pos [200 207], :picture "9(8)", :default 0},
+    :codigo_segmento {:pos [14 14], :picture "X(1)", :default "R"},
+    :valor_multa {:pos [75 89], :picture "9(13)V9(2)", :default 0},
+    :valor_desconto_03
+    {:pos [51 65], :picture "9(13)V9(2)", :default 0},
+    :mensagem_03 {:pos [100 139], :picture "X(40)", :default ""},
+    :data_desconto_02 {:pos [19 26], :picture "9(8)", :default 0},
+    :codigo_desconto_03 {:pos [42 42], :picture "9(1)", :default 0},
+    :mensagem_04 {:pos [140 179], :picture "X(40)", :default ""}},
+   :segmento_s
+   {:mensagem_06 {:pos [59 98], :picture "X(40)", :default ""},
+    :tipo_registro {:pos [8 8], :picture "9(1)", :default 3},
+    :numero_registro {:pos [9 13], :picture "9(5)"},
+    :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+    :identificacao_impressao
+    {:pos [18 18], :picture "9(1)", :default 0},
+    :exclusivo_febraban_01
+    {:pos [15 15], :picture "X(1)", :default ""},
+    :mensagem_08 {:pos [139 178], :picture "X(40)", :default ""},
+    :lote_servico {:pos [4 7], :picture "9(4)"},
+    :mensagem_09 {:pos [179 218], :picture "X(40)", :default ""},
+    :codigo_movimento_remessa {:pos [16 17], :picture "9(2)"},
+    :mensagem_07 {:pos [99 138], :picture "X(40)", :default ""},
+    :exclusivo_febraban_03
+    {:pos [219 240], :picture "X(22)", :default ""},
+    :codigo_segmento {:pos [14 14], :picture "X(1)", :default "S"},
+    :mensagem_05 {:pos [19 58], :picture "X(40)", :default ""}},
+   :segmento_y04
+   {:codigo_movimento {:pos [16 17], :picture "9(2)"},
+    :email {:pos [20 69], :picture "X(50)"},
+    :tipo_registro {:pos [8 8], :picture "9(1)", :default 3},
+    :numero_registro {:pos [9 13], :picture "9(5)"},
+    :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+    :exclusivo_febraban_01
+    {:pos [15 15], :picture "X(1)", :default ""},
+    :lote_servico {:pos [4 7], :picture "9(4)"},
+    :identificacao_registro
+    {:pos [18 19], :picture "9(2)", :default 3},
+    :exclusivo_febraban_02
+    {:pos [80 240], :picture "X(161)", :default ""},
+    :numero_celular {:pos [72 79], :picture "9(8)"},
+    :codigo_ddd {:pos [70 71], :picture "9(2)"},
+    :codigo_segmento {:pos [14 14], :picture "X(1)", :default "Y"}},
+   :segmento_y51
+   {:data_emissao_nf_04 {:pos [164 171], :picture "9(8)", :default 0},
+    :numero_nf_05 {:pos [172 186], :picture "X(15)", :default ""},
+    :valor_nf_02 {:pos [73 87], :picture "9(13)V9(2)", :default 0},
+    :codigo_movimento {:pos [16 17], :picture "9(2)"},
+    :numero_nf_01 {:pos [20 34], :picture "X(15)"},
+    :valor_nf_04 {:pos [149 163], :picture "9(13)V9(2)", :default 0},
+    :tipo_registro {:pos [8 8], :picture "9(1)", :default 3},
+    :numero_registro {:pos [9 13], :picture "9(5)"},
+    :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+    :data_emissao_nf_05 {:pos [202 209], :picture "9(8)", :default 0},
+    :data_emissao_nf_02 {:pos [88 95], :picture "9(8)", :default 0},
+    :exclusivo_febraban_01
+    {:pos [15 15], :picture "X(1)", :default ""},
+    :lote_servico {:pos [4 7], :picture "9(4)"},
+    :numero_nf_03 {:pos [96 110], :picture "X(15)", :default ""},
+    :identificacao_registro
+    {:pos [18 19], :picture "9(2)", :default 51},
+    :exclusivo_febraban_02
+    {:pos [210 240], :picture "X(31)", :default ""},
+    :numero_nf_04 {:pos [134 148], :picture "X(15)", :default ""},
+    :valor_nf_05 {:pos [187 201], :picture "9(13)V9(2)", :default 0},
+    :data_emissao_nf_03 {:pos [126 133], :picture "9(8)", :default 0},
+    :valor_nf_03 {:pos [111 125], :picture "9(13)V9(2)", :default 0},
+    :data_emissao_nf_01 {:pos [50 57], :picture "9(8)"},
+    :numero_nf_02 {:pos [58 72], :picture "X(15)", :default ""},
+    :codigo_segmento {:pos [14 14], :picture "X(1)", :default "Y"},
+    :valor_nf_01 {:pos [35 49], :picture "9(13)V9(2)"}},
+   :segmento_p
+   {:data_desconto_01 {:pos [143 150], :picture "9(8)", :default 0},
+    :verificador_agencia_cobranca
+    {:pos [106 106], :picture "X(1)", :default ""},
+    :numero_contrato_operacao_credito
+    {:pos [230 239], :picture "9(10)", :default 0},
+    :tipo_documento {:pos [60 60], :picture "X(1)", :default ""},
+    :codigo_baixa_devolucao
+    {:pos [224 224], :picture "9(1)", :default 0},
+    :codigo_carteira {:pos [58 58], :picture "9(1)"},
+    :agencia_conta {:pos [18 22], :picture "9(5)"},
+    :tipo_registro {:pos [8 8], :picture "9(1)", :default 3},
+    :forma_cadastro_titulo {:pos [59 59], :picture "9(1)", :default 0},
+    :numero_registro {:pos [9 13], :picture "9(5)"},
+    :codigo_banco {:pos [1 3], :picture "9(1)", :default 1},
+    :codigo_protesto {:pos [221 221], :picture "9(1)", :default 3},
+    :exclusivo_febraban_01
+    {:pos [15 15], :picture "X(1)", :default ""},
+    :lote_servico {:pos [4 7], :picture "9(4)"},
+    :data_juros_mora {:pos [119 126], :picture "9(8)"},
+    :dias_protesto {:pos [222 223], :picture "9(2)", :default 0},
+    :aceite {:pos [109 109], :picture "X(1)", :default "N"},
+    :exclusivo_febraban_02
+    {:pos [240 240], :picture "X(1)", :default ""},
+    :verificador_agencia_conta
+    {:pos [37 37], :picture "X(1)", :default ""},
+    :verificador_agencia {:pos [23 23], :picture "X(1)"},
+    :valor_iof {:pos [166 180], :picture "9(13)V9(2)", :default 0},
+    :especie {:pos [107 108], :picture "9(2)", :default 17},
+    :numero_conta {:pos [24 35], :picture "9(12)"},
+    :codigo_movimento_remessa
+    {:pos [16 17], :picture "9(2)", :default "01"},
+    :valor_abatimento
+    {:pos [181 195], :picture "9(13)V9(2)", :default 0},
+    :dias_baixa_devolucao
+    {:pos [225 227], :picture "X(3)", :default "0"},
+    :valor_nominal {:pos [86 100], :picture "9(13)V9(2)"},
+    :valor_desconto_01
+    {:pos [151 165], :picture "9(13)V9(2)", :default 0},
+    :identificacao_titulo {:pos [38 57], :picture "X(20)"},
+    :data_vencimento {:pos [78 85], :picture "9(8)"},
+    :identificacao_distribuicao
+    {:pos [62 62], :picture "X(1)", :default ""},
+    :identificacao_titulo_empresa
+    {:pos [196 220], :picture "X(25)", :default ""},
+    :codigo_segmento {:pos [14 14], :picture "X(1)", :default "P"},
+    :data_emissao {:pos [110 117], :picture "9(8)"},
+    :juros_mora_dia {:pos [127 141], :picture "9(13)V9(2)"},
+    :verificador_conta {:pos [36 36], :picture "X(1)"},
+    :codigo_moeda {:pos [228 229], :picture "9(2)", :default 9},
+    :codigo_juros_mora {:pos [118 118], :picture "9(1)"},
+    :codigo_desconto_01 {:pos [142 142], :picture "9(1)", :default 0},
+    :identificacao_emissao_bloqueto
+    {:pos [61 61], :picture "9(1)", :default 0},
+    :numero_documento {:pos [63 77], :picture "X(15)"},
+    :agencia_cobranca {:pos [101 105], :picture "9(5)", :default 0}},
+   :segmento_y05
+   {:codigo_movimento {:pos [16 17], :picture "9(2)"},
+    :identificacao_cheque_03
+    {:pos [88 121], :picture "X(34)", :default ""},
+    :identificacao_cheque_02
+    {:pos [54 87], :picture "X(34)", :default ""},
+    :tipo_registro {:pos [8 8], :picture "9(1)", :default 3},
+    :numero_registro {:pos [9 13], :picture "9(5)"},
+    :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+    :identificacao_cheque_04
+    {:pos [122 155], :picture "X(34)", :default ""},
+    :exclusivo_febraban_01
+    {:pos [15 15], :picture "X(1)", :default ""},
+    :lote_servico {:pos [4 7], :picture "9(4)"},
+    :identificacao_registro
+    {:pos [18 19], :picture "9(2)", :default 4},
+    :exclusivo_febraban_02
+    {:pos [224 240], :picture "X(17)", :default ""},
+    :identificacao_cheque_05
+    {:pos [156 189], :picture "X(34)", :default ""},
+    :identificacao_cheque_06
+    {:pos [190 223], :picture "9(34)", :default 0},
+    :codigo_segmento {:pos [14 14], :picture "X(1)", :default "Y"},
+    :identificacao_cheque_01 {:pos [20 53], :picture "X(34)"}},
+   :segmento_y01
+   {:bairro {:pos [116 130], :picture "X(15)", :default ""},
+    :sufixo_cep {:pos [136 138], :picture "9(3)", :default 0},
+    :tipo_inscricao {:pos [20 20], :picture "9(1)"},
+    :tipo_registro {:pos [8 8], :picture "9(1)", :default 3},
+    :endereco {:pos [76 115], :picture "X(40)", :default ""},
+    :numero_registro {:pos [9 13], :picture "9(5)"},
+    :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+    :exclusivo_febraban_01
+    {:pos [15 15], :picture "X(1)", :default ""},
+    :lote_servico {:pos [4 7], :picture "9(5)"},
+    :identificacao_registro
+    {:pos [18 19], :picture "9(2)", :default 1},
+    :exclusivo_febraban_02
+    {:pos [156 240], :picture "X(85)", :default ""},
+    :uf {:pos [154 155], :picture "X(2)", :default ""},
+    :codigo_movimento_remessa {:pos [16 17], :picture "9(2)"},
+    :numero_inscricao {:pos [21 35], :picture "9(15)"},
+    :codigo_segmento {:pos [14 14], :picture "X(1)", :default "Y"},
+    :cep {:pos [131 135], :picture "9(5)", :default 0},
+    :nome_sacador_avalista
+    {:pos [36 75], :picture "X(40)", :default ""},
+    :cidade {:pos [139 153], :picture "X(15)", :default ""}}}},
+ :retorno
+ {:header_arquivo
+  {:numero_convenio {:pos [33 41], :picture "9(9)"},
+   :numero_carteira_cobranca {:pos [46 47], :picture "9(2)"},
+   :agencia_mantenedora_conta {:pos [53 57], :picture "9(5)"},
+   :densidade_gravacao_arquivo
+   {:pos [167 171], :picture "9(5)", :default 0},
+   :digito_verificador_agencia {:pos [58 58], :picture "X(1)"},
+   :reservado_empresa_01
+   {:pos [192 211], :picture "X(20)", :default ""},
+   :tipo_registro {:pos [8 8], :picture "9(1)", :default "0"},
+   :cobranca_cedente {:pos [42 45], :picture "9(4)"},
+   :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+   :digito_verificador_conta {:pos [71 71], :picture "X(1)"},
+   :data_geracao_arquivo {:pos [144 151], :picture "9(8)"},
+   :exclusivo_febraban_01 {:pos [9 17], :picture "X(9)", :default ""},
+   :tipo_inscricao_empresa {:pos [18 18], :picture "9(1)"},
+   :lote_servico {:pos [4 7], :picture "9(4)", :default "0000"},
+   :nome_empresa {:pos [73 102], :picture "X(30)"},
+   :reservado_banco_01 {:pos [172 191], :picture "X(20)", :default ""},
+   :exclusivo_febraban_02
+   {:pos [133 142], :picture "X(10)", :default ""},
+   :numero_sequencial_arquivo {:pos [158 163], :picture "9(6)"},
+   :nome_banco
+   {:pos [103 132], :picture "X(30)", :default "BANCO DO BRASIL S.A."},
+   :variacao_carteira_cobranca {:pos [48 50], :picture "9(3)"},
+   :exclusivo_febraban_03
+   {:pos [212 240], :picture "X(29)", :default ""},
+   :digito_verificador_agencia_conta {:pos [72 72], :picture "X(1)"},
+   :numero_inscricao_empresa {:pos [19 32], :picture "9(14)"},
+   :codigo_remessa_retorno {:pos [143 143], :picture "9(1)"},
+   :numero_conta_corrente {:pos [59 70], :picture "9(12)"},
+   :hora_geracao_arquivo {:pos [152 157], :picture "9(6)"},
+   :campo_reservado_bb {:pos [51 52], :picture "X(2)"},
+   :versao_layout_arquivo
+   {:pos [164 166], :picture "9(3)", :default "084"}},
+  :trailer_arquivo
+  {:codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+   :lote_servico {:pos [4 7], :picture "9(4)", :default "9999"},
+   :tipo_registro {:pos [8 8], :picture "9(1)", :default 9},
+   :exclusivo_febraban_01 {:pos [9 17], :picture "X(9)", :default ""},
+   :quantidade_lotes_arquivo {:pos [18 23], :picture "9(6)"},
+   :quantidade_registros_arquivo {:pos [24 29], :picture "9(6)"},
+   :quantidade_contas_conciliacao_lotes
+   {:pos [30 35], :picture "9(6)", :default 0},
+   :exclusivo_febraban_02
+   {:pos [36 240], :picture "X(205)", :default ""}},
+  :header_lote
+  {:data_gravacao {:pos [192 199], :picture "9(8)", :default 0},
+   :numero_convenio {:pos [34 42], :picture "9(9)"},
+   :numero_remessa_retorno {:pos [184 191], :picture "9(8)"},
+   :tipo_servico {:pos [10 11], :picture "9(2)", :default 1},
+   :numero_carteira_cobranca {:pos [47 48], :picture "9(2)"},
+   :agencia_mantenedora_conta {:pos [54 58], :picture "9(5)"},
+   :remessa_teste {:pos [52 53], :picture "X(2)", :default ""},
+   :digito_verificador_agencia {:pos [59 59], :picture "X(1)"},
+   :tipo_registro {:pos [8 8], :picture "9(1)", :default 1},
+   :data_credito {:pos [200 207], :picture "9(8)", :default 0},
+   :cobranca_cedente {:pos [43 46], :picture "9(4)"},
+   :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+   :digito_verificador_conta {:pos [72 72], :picture "X(1)"},
+   :exclusivo_febraban_01 {:pos [12 13], :picture "X(2)", :default ""},
+   :tipo_inscricao_empresa {:pos [18 18], :picture "9(1)"},
+   :lote_servico {:pos [4 7], :picture "9(4)"},
+   :mensagem_01 {:pos [104 143], :picture "X(40)", :default ""},
+   :nome_empresa {:pos [74 103], :picture "X(30)"},
+   :exclusivo_febraban_02 {:pos [17 17], :picture "X(1)", :default ""},
+   :variacao_carteira_cobranca {:pos [49 51], :picture "9(3)"},
+   :exclusivo_febraban_03
+   {:pos [208 240], :picture "X(33)", :default ""},
+   :digito_verificador_agencia_conta
+   {:pos [73 73], :picture "X(1)", :default ""},
+   :numero_inscricao_empresa {:pos [19 33], :picture "9(14)"},
+   :tipo_operacao {:pos [9 9], :picture "X(1)", :default "T"},
+   :numero_conta_corrente {:pos [60 71], :picture "9(12)"},
+   :mensagem_02 {:pos [144 183], :picture "X(40)", :default ""},
+   :versao_layout_lote
+   {:pos [14 16], :picture "9(3)", :default "043"}},
+  :trailer_lote
+  {:codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+   :lote_servico {:pos [4 7], :picture "9(4)"},
+   :tipo_registro {:pos [8 8], :picture "9(1)", :default "5"},
+   :quantidade_registros_lote {:pos [18 23], :picture "9(6)"},
+   :exclusivo_febraban_01
+   {:pos [24 240], :picture "X(217)", :default ""}},
+  :detalhes
+  {:segmento_t
+   {:codigo_movimento {:pos [16 17], :picture "9(2)"},
+    :nome {:pos [149 188], :picture "X(40)"},
+    :verificador_agencia_cobradora_recebedora
+    {:pos [105 105], :picture "9(1)"},
+    :valor_tarifa_custas {:pos [199 213], :picture "9(13)V9(2)"},
+    :tipo_inscricao {:pos [133 133], :picture "9(1)"},
+    :numero_contrato_operacao_credito
+    {:pos [189 198], :picture "9(10)"},
+    :agencia_mantenedora_conta {:pos [18 22], :picture "9(5)"},
+    :numero_banco {:pos [97 99], :picture "9(3)"},
+    :codigo_carteira {:pos [58 58], :picture "9(1)"},
+    :tipo_registro {:pos [8 8], :picture "9(1)", :default 3},
+    :numero_documento_cobranca
+    {:pos [59 73], :picture "X(15)", :default ""},
+    :numero_registro {:pos [9 13], :picture "9(5)"},
+    :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+    :agencia_cobradora_recebedora {:pos [100 104], :picture "9(5)"},
+    :exclusivo_febraban_01
+    {:pos [15 15], :picture "X(1)", :default ""},
+    :identificacao_rejeicoes {:pos [214 223], :picture "X(10)"},
+    :lote_servico {:pos [4 7], :picture "9(4)"},
+    :exclusivo_febraban_02
+    {:pos [224 240], :picture "X(17)", :default ""},
+    :verificador_agencia_conta {:pos [37 37], :picture "9(1)"},
+    :numero_conta {:pos [24 35], :picture "9(12)"},
+    :valor_nominal {:pos [82 96], :picture "9(13)V9(2)"},
+    :verificador_agencia_mantenedora {:pos [23 23], :picture "9(1)"},
+    :numero_inscricao {:pos [134 148], :picture "9(15)"},
+    :identificacao_titulo {:pos [38 57], :picture "X(20)"},
+    :data_vencimento {:pos [74 81], :picture "9(8)"},
+    :identificacao_titulo_empresa {:pos [106 130], :picture "X(25)"},
+    :codigo_segmento {:pos [14 14], :picture "X(1)", :default "T"},
+    :verificador_conta {:pos [36 36], :picture "9(1)"},
+    :codigo_moeda {:pos [131 132], :picture "9(2)", :default 9}},
+   :segmento_u
+   {:codigo_movimento {:pos [16 17], :picture "9(2)", :default ""},
+    :codigo_ocorrencia {:pos [154 157], :picture "9(4)"},
+    :outros_creditos {:pos [123 137], :picture "9(13)V9(2)"},
+    :complemento_ocorrencia {:pos [181 210], :picture "X(30)"},
+    :valor_abatimento_concedido {:pos [48 62], :picture "9(13)V9(2)"},
+    :data_efetivacao_credito {:pos [146 153], :picture "9(8)"},
+    :nosso_numero_banco_correspondente
+    {:pos [214 233], :picture "9(20)"},
+    :tipo_registro {:pos [8 8], :picture "9(1)", :default 3},
+    :numero_registro {:pos [9 13], :picture "9(5)"},
+    :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+    :valor_desconto_concedido {:pos [33 47], :picture "9(13)V9(2)"},
+    :exclusivo_febraban_01
+    {:pos [15 15], :picture "X(1)", :default ""},
+    :lote_servico {:pos [4 7], :picture "9(4)"},
+    :exclusivo_febraban_02
+    {:pos [234 240], :picture "X(7)", :default ""},
+    :valor_iof {:pos [63 77], :picture "9(13)V9(2)"},
+    :codigo_banco_correspondente_compensacao
+    {:pos [211 213], :picture "9(3)"},
+    :valor_ocorrencia {:pos [166 180], :picture "9(13)V9(2)"},
+    :codigo_segmento {:pos [14 14], :picture "X(1)", :default "U"},
+    :valor_pago {:pos [78 92], :picture "9(13)V9(2)"},
+    :outras_despesas {:pos [108 122], :picture "9(13)V9(2)"},
+    :juros_multa_encargos {:pos [18 32], :picture "9(13)V9(2)"},
+    :data_ocorrencia {:pos [158 165], :picture "9(8)"},
+    :valor_liquido {:pos [93 107], :picture "9(13)V9(2)"}}}}}
