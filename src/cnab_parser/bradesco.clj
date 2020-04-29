@@ -31,7 +31,7 @@
                                        [cnab-unit segmento_y01]
                                        [cnab-unit segmento_y50]]))]
       (map #(let [{:keys [args-pos args res] :as td} (try-parse %)]
-              (case args-pos
+              (case (long args-pos)
                 0 {:segmento_p res}
                 1 {:segmento_q res}
                 2 {:segmento_r res}
@@ -98,7 +98,7 @@
                                        [cnab-unit segmento_y01]
                                        [cnab-unit segmento_y50]]))]
       (map #(let [{:keys [args-pos args res] :as td} (try-parse %)]
-              (case args-pos
+              (case (long args-pos)
                 0 {:segmento_t res}
                 1 {:segmento_u res}
                 2 {:segmento_y01 res}

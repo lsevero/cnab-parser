@@ -22,7 +22,7 @@
               (try-args parse-detalhe [[cnab-unit segmento_1]
                                        [cnab-unit segmento_4]]))]
       (map #(let [{:keys [args-pos args res] :as td} (try-parse %)]
-              (case args-pos
+              (case (long args-pos)
                 0 {:segmento_1 res}
                 1 {:segmento_4 res}
                 {:error {:cnab %}}
