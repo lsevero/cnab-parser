@@ -187,6 +187,12 @@
      :trailer_lote (parse-cnab-trailer-lote trailer-lote padrao cnab-type)
      :trailer_arquivo (parse-cnab-trailer-arquivo trailer-arquivo padrao cnab-type)
      }))
+(comment (-> (parse-cnab (slurp "/home/severo/Documentos/cnab-exemplo/bb240/29042020.REM")
+                         :bb240
+                         :remessa
+                         )
+             :detalhes
+             ))
 
 (defmethod parse-cnab-header-arquivo [:bb240 :retorno]
   [cnab padrao cnab-type]
