@@ -41,7 +41,9 @@
             (Double/parseDouble (str (subs field 0 (Long/parseLong size1))
                                      "."
                                      (subs field (Long/parseLong size1)))))
-          (Long/parseLong field))
+          (if (<= (count field) 18)
+            (Long/parseLong field)
+            (BigInteger. field)))
         (s/starts-with? picture "X") field
         :else (throw (ex-info "Picture não está definido nem como número (9) nem como string (X)"
                               {:msg "Erro em picture"

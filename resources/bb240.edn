@@ -345,7 +345,7 @@
     :codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
     :exclusivo_febraban_01
     {:pos [15 15], :picture "X(1)", :default ""},
-    :lote_servico {:pos [4 7], :picture "9(5)"},
+    :lote_servico {:pos [4 7], :picture "9(4)"},
     :identificacao_registro
     {:pos [18 19], :picture "9(2)", :default 1},
     :exclusivo_febraban_02
@@ -357,7 +357,25 @@
     :cep {:pos [131 135], :picture "9(5)", :default 0},
     :nome_sacador_avalista
     {:pos [36 75], :picture "X(40)", :default ""},
-    :cidade {:pos [139 153], :picture "X(15)", :default ""}}}},
+    :cidade {:pos [139 153], :picture "X(15)", :default ""}}
+   :segmento_y52
+   {:codigo_banco {:pos [1 3] :picture "9(3)" :default 1}
+    :lote_servico {:pos [4 7] :picture "9(4)"}
+    :tipo_registro {:pos [8 8] :picture "9(1)" :default 3}
+    :numero_registro {:pos [9 13] :picture "9(5)"}
+    :codigo_segmento {:pos [14 14] :picture "X(1)" :default "Y"}
+    :exclusivo_febraban_01 {:pos [15 15] :picture "X(1)"}
+    :codigo_movimento_remessa {:pos [16 17] :picture "X(2)"}
+    :identificacao_registro {:pos [18 19] :picture "9(2)" :default 52}
+    :numero_nf_01 {:pos [20 34] :picture "X(15)"}
+    :valor_nf_01 {:pos [35 49] :picture "9(13)V9(2)"}
+    :data_emissao_nf_01 {:pos [50 57] :picture "9(8)"}
+    :chave_acesso_nf_01 {:pos [58 101] :picture "9(44)"}
+    :numero_nf_02 {:pos [102 116] :picture "X(15)"}
+    :valor_nf_02 {:pos [117 131] :picture "9(13)V9(2)"}
+    :data_emissao_nf_02 {:pos [132 140] :picture "9(9)"}
+    :chave_acesso_nf_02 {:pos [141 184] :picture "9(44)"}
+    :exclusivo_febraban_02 {:pos [185 240] :picture "X(56)"}}}}
  :retorno
  {:header_arquivo
   {:numero_convenio {:pos [33 41], :picture "9(9)"},
@@ -506,4 +524,4 @@
     :outras_despesas {:pos [108 122], :picture "9(13)V9(2)"},
     :juros_multa_encargos {:pos [18 32], :picture "9(13)V9(2)"},
     :data_ocorrencia {:pos [158 165], :picture "9(8)"},
-    :valor_liquido {:pos [93 107], :picture "9(13)V9(2)"}}}}}
+    :valor_liquido {:pos [93 107], :picture "9(13)V9(2)"}}}}}}

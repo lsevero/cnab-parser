@@ -132,31 +132,34 @@
 
 (defmethod parse-cnab-detalhes [:bb240 :remessa]
   [cnabs padrao cnab-type]
-  (let [{{{:keys [segmento_p segmento_q segmento_r segmento_s
-                  segmento_y01 segmento_y04 segmento_y05 segmento_y50 segmento_y51] :as detalhes} :detalhes} :remessa} bb240-parser]
+  (let [{{{:keys [segmento_p segmento_q segmento_r segmento_s segmento_y01 segmento_y04
+                  segmento_y05 segmento_y50 segmento_y51 segmento_y52] :as detalhes} :detalhes} :remessa} bb240-parser]
     (letfn [(parse-detalhe [cnab map-spec]
               (into {} (map (fn [[k spec]] [k (parse-cnab-field cnab spec)]) map-spec)))
             (try-parse [cnab-unit]
               (try-args parse-detalhe [[cnab-unit segmento_p]
                                        [cnab-unit segmento_q]
+                                       [cnab-unit segmento_y52]
                                        [cnab-unit segmento_r]
                                        [cnab-unit segmento_s]
                                        [cnab-unit segmento_y01]
                                        [cnab-unit segmento_y04]
                                        [cnab-unit segmento_y05]
                                        [cnab-unit segmento_y50]
-                                       [cnab-unit segmento_y51]]))]
+                                       [cnab-unit segmento_y51]
+                                       ]))]
       (map #(let [{:keys [args-pos args res] :as td} (try-parse %)]
               (case (long args-pos)
                 0 {:segmento_p res}
                 1 {:segmento_q res}
-                2 {:segmento_r res}
-                3 {:segmento_s res}
-                4 {:segmento_y01 res}
-                5 {:segmento_y04 res}
-                6 {:segmento_y05 res}
-                7 {:segmento_y50 res}
-                8 {:segmento_y51 res}
+                2 {:segmento_y52 res}
+                3 {:segmento_r res}
+                4 {:segmento_s res}
+                5 {:segmento_y01 res}
+                6 {:segmento_y04 res}
+                7 {:segmento_y05 res}
+                8 {:segmento_y50 res}
+                9 {:segmento_y51 res}
                 {:error {:cnab %}}
                 )) cnabs))))
 
