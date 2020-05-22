@@ -133,13 +133,14 @@
 (defmethod parse-cnab-detalhes [:bb240 :remessa]
   [cnabs padrao cnab-type]
   (let [{{{:keys [segmento_p segmento_q segmento_r segmento_s segmento_y01 segmento_y04
-                  segmento_y05 segmento_y50 segmento_y51 segmento_y52] :as detalhes} :detalhes} :remessa} bb240-parser]
+                  segmento_y05 segmento_y50 segmento_y51 segmento_y52 segmento_l] :as detalhes} :detalhes} :remessa} bb240-parser]
     (letfn [(parse-detalhe [cnab map-spec]
               (into {} (map (fn [[k spec]] [k (parse-cnab-field cnab spec)]) map-spec)))
             (try-parse [cnab-unit]
               (try-args parse-detalhe [[cnab-unit segmento_p]
                                        [cnab-unit segmento_q]
                                        [cnab-unit segmento_y52]
+                                       [cnab-unit segmento_l]
                                        [cnab-unit segmento_r]
                                        [cnab-unit segmento_s]
                                        [cnab-unit segmento_y01]
@@ -153,13 +154,14 @@
                 0 {:segmento_p res}
                 1 {:segmento_q res}
                 2 {:segmento_y52 res}
-                3 {:segmento_r res}
-                4 {:segmento_s res}
-                5 {:segmento_y01 res}
-                6 {:segmento_y04 res}
-                7 {:segmento_y05 res}
-                8 {:segmento_y50 res}
-                9 {:segmento_y51 res}
+                3 {:segmento_l res}
+                4 {:segmento_r res}
+                5 {:segmento_s res}
+                6 {:segmento_y01 res}
+                7 {:segmento_y04 res}
+                8 {:segmento_y05 res}
+                9 {:segmento_y50 res}
+                10 {:segmento_y51 res}
                 {:error {:cnab %}}
                 )) cnabs))))
 
@@ -195,7 +197,20 @@
                          :remessa
                          )
              :detalhes
-             ))
+          (-> (parse-cnab (slurp "/home/severo/Documentos/cnab-exemplo/bb240/11052020.REM")
+                         :bb240
+                         :remessa
+                         )
+             :detalhes
+             )   )
+         
+         (spit "/tmp/cnab-coteminas2.edn" (->
+           (slurp "/home/severo/Documentos/cnab-exemplo/bb240/11052020.REM")
+           (parse-cnab  :bb240 :remessa)
+           clojure.pprint/pprint
+           with-out-str
+           ))
+         )
 
 (defmethod parse-cnab-header-arquivo [:bb240 :retorno]
   [cnab padrao cnab-type]

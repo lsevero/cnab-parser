@@ -36,9 +36,9 @@
    :hora_geracao_arquivo {:pos [152 157], :picture "9(6)"},
    :campo_reservado_bb {:pos [51 52], :picture "X(2)"},
    :versao_layout_arquivo
-   {:pos [164 166], :picture "9(3)", :default "084"}},
+   {:pos [164 166], :picture "X(3)", :default "084"}},
   :trailer_arquivo
-  {:codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+  {:codigo_banco {:pos [1 3], :picture "X(3)", :default "001"},
    :lote_servico {:pos [4 7], :picture "9(4)", :default "9999"},
    :tipo_registro {:pos [8 8], :picture "9(1)", :default 9},
    :exclusivo_febraban_01 {:pos [9 17], :picture "X(9)", :default ""},
@@ -80,14 +80,58 @@
    :versao_layout_lote
    {:pos [14 16], :picture "9(3)", :default 43}},
   :trailer_lote
-  {:codigo_banco {:pos [1 3], :picture "9(3)", :default 1},
+  {:codigo_banco {:pos [1 3], :picture "X(3)", :default "001"},
    :lote_servico {:pos [4 7], :picture "9(4)"},
    :tipo_registro {:pos [8 8], :picture "9(1)", :default "5"},
    :quantidade_registros_lote {:pos [18 23], :picture "9(6)"},
    :exclusivo_febraban_01
    {:pos [24 240], :picture "X(217)", :default ""}},
   :detalhes
-  {:segmento_p
+  {:segmento_l
+   {:codigo_banco {:pos [1 3] :picture "9(3)" :default 1}
+    :lote_servico {:pos [4 7] :picture "9(4)"}
+    :tipo_registro {:pos [8 8] :picture "9(1)" :default 3}
+    :numero_registro {:pos [9 13] :picture "9(5)"}
+    :codigo_segmento {:pos [14 14] :picture "X(1)" :default "L"}
+    :exclusivo_febraban_01 {:pos [15 15], :picture "X(1)", :default ""},
+    :codigo_movimento_remessa {:pos [16 17], :picture "X(2)", :default "01"},
+    :numero_duplicata {:pos [18 32] :picture "X(15)"}
+    :numero_contrato_financiamento {:pos [33 42] :picture "9(10)"}
+    :data_emissao {:pos [43 50] :picture "9(8)"}
+    :data_financiamento {:pos [51 58] :picture "9(8)"}
+    :valor_nominal_titulo {:pos [59 73] :picture "9(13)V9(2)"}
+    :taxa_juros_vendedor {:pos [74 81] :picture "9(3)V9(5)"}
+    :taxa_juros_comprador {:pos [82 89] :picture "9(3)V9(5)"}
+    :codigo_moeda_vendedor {:pos [90 91] :picture "9(2)"}
+    :codigo_moeda_comprador {:pos [92 93] :picture "9(2)"}
+    :data_primeiro_vencimento_titulo {:pos [94 101] :picture "9(8)"}
+    :data_vencimento_final {:pos [102 109] :picture "9(8)"}
+    :tipo_vencimento_parcela {:pos [110 110] :picture "9(1)"}
+    :periodicidade_prazo_vencimento {:pos [111 112] :picture "9(2)"}
+    :quantidade_parcelas {:pos [113 114] :picture "9(2)"}
+    :forma_pagamento {:pos [115 115] :picture "9(1)"}
+    :tipo_equalizacao {:pos [116 116] :picture "9(1)"}
+    :modalidade_equalizacao {:pos [117 117] :picture "9(1)"}
+    :data_primeira_repactuacao {:pos [118 125] :picture "9(8)"}
+    :data_ultima_repactuacao {:pos [126 133] :picture "9(8)"}
+    :periodicidade_repactuacao {:pos [134 135] :picture "9(2)"}
+    :codigo_multa {:pos [136 136] :picture "9(1)"}
+    :data_multa {:pos [137 144] :picture "9(8)"}
+    :valor_percentual_a_ser_aplicado {:pos [145 159] :picture "9(13)V9(2)"}
+    :codigo_desconto {:pos [160 160] :picture "9(1)"}
+    :data_desconto {:pos [161 168] :picture "9(8)"}
+    :valor_percentual_a_ser_concedido {:pos [169 183] :picture "9(13)V9(2)"}
+    :nota_data_vencimento {:pos [184 191] :picture "9(8)"}
+    :nova_taxa_juros_vendedor {:pos [192 199] :picture "9(8)"}
+    :nova_tava_jutos_comprador {:pos [200 207] :picture "9(8)"}
+    :forma_pagamento_iof_abatido {:pos [208 208] :picture "9(8)"}
+    :prazo_debito_transferencia {:pos [209 210] :picture "9(2)"}
+    :codigo_protesto {:pos [211 211] :picture "9(1)"}
+    :numero_dias_protesto {:pos [212 213] :picture "X(2)"}
+    :valor_abatimento {:pos [214 228] :picture "9(13)V9(2)"}
+    :especie_titulo {:pos [229 230] :picture "9(2)"}
+    :exclusivo_febraban_02 {:pos [231 240] :picture "X(10)"}}
+   :segmento_p
    {:data_desconto_01 {:pos [143 150], :picture "9(8)", :default 0},
     :verificador_agencia_cobranca
     {:pos [106 106], :picture "X(1)", :default ""},
@@ -524,4 +568,4 @@
     :outras_despesas {:pos [108 122], :picture "9(13)V9(2)"},
     :juros_multa_encargos {:pos [18 32], :picture "9(13)V9(2)"},
     :data_ocorrencia {:pos [158 165], :picture "9(8)"},
-    :valor_liquido {:pos [93 107], :picture "9(13)V9(2)"}}}}}}
+    :valor_liquido {:pos [93 107], :picture "9(13)V9(2)"}}}}}
