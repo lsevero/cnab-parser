@@ -1,4 +1,4 @@
-(defproject cnab-parser "0.0.10"
+(defproject cnab-parser "0.0.11"
   :description "Parser de CNAB de bancos brasileiros"
   :url "https://github.com/lsevero/cnab-parser"
   :license {:name "EPL-2.0 OR GPL-2.0-or-later WITH Classpath-exception-2.0"

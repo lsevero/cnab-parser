@@ -124,7 +124,7 @@
     :nota_data_vencimento {:pos [184 191] :picture "9(8)"}
     :nova_taxa_juros_vendedor {:pos [192 199] :picture "9(8)"}
     :nova_tava_jutos_comprador {:pos [200 207] :picture "9(8)"}
-    :forma_pagamento_iof_abatido {:pos [208 208] :picture "9(8)"}
+    :forma_pagamento_iof_abatido {:pos [208 208] :picture "9(1)"}
     :prazo_debito_transferencia {:pos [209 210] :picture "9(2)"}
     :codigo_protesto {:pos [211 211] :picture "9(1)"}
     :numero_dias_protesto {:pos [212 213] :picture "X(2)"}
