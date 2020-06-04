@@ -192,25 +192,11 @@
      :trailer_lote (parse-cnab-trailer-lote trailer-lote padrao cnab-type)
      :trailer_arquivo (parse-cnab-trailer-arquivo trailer-arquivo padrao cnab-type)
      }))
-(comment (-> (parse-cnab (slurp "/home/severo/Documentos/cnab-exemplo/bb240/29042020.REM")
+(comment (-> (parse-cnab (slurp "/home/severo/Documentos/cnab-exemplo/bb240/0955509_.rem")
                          :bb240
                          :remessa
                          )
-             :detalhes
-          (-> (parse-cnab (slurp "/home/severo/Documentos/cnab-exemplo/bb240/11052020.REM")
-                         :bb240
-                         :remessa
-                         )
-             :detalhes
-             )   )
-         
-         (spit "/tmp/cnab-coteminas2.edn" (->
-           (slurp "/home/severo/Documentos/cnab-exemplo/bb240/11052020.REM")
-           (parse-cnab  :bb240 :remessa)
-           clojure.pprint/pprint
-           with-out-str
-           ))
-         )
+             :detalhes))
 
 (defmethod parse-cnab-header-arquivo [:bb240 :retorno]
   [cnab padrao cnab-type]

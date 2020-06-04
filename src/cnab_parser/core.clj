@@ -6,6 +6,8 @@
             [clojure.test :refer [is]]
             ))
 
+(def ^:dynamic *suppress-warnings* false)
+
 (defn make-cnab-parser
   "Cria um parser de cnab a partirda sua espeficicação em edn
 
@@ -29,9 +31,9 @@
   "
   [^String cnab-part {picture :picture [begin end :as pos] :pos :as spec}]
   {:pre [(is (and (contains? spec :picture)
-              (contains? spec :pos)))
+                  (contains? spec :pos)))
          (is (= (- end (dec begin))
-            (apply + (map #(Long/parseLong (% 1)) (re-seq #"\((\d+)\)" picture)))))]}
+                (apply + (map #(Long/parseLong (% 1)) (re-seq #"\((\d+)\)" picture)))))]}
   (try
     (let [field (subs cnab-part (dec begin) end)]
       (cond
@@ -49,9 +51,11 @@
                               {:msg "Erro em picture"
                                :pos pos
                                :picture picture}))))
-    (catch Exception e (do
-                         (log/debug "parse-cnab-field fail! cnab-part: " cnab-part " spec: " spec " exception: " e)
-                         (throw e))))) 
+    (catch Exception e (if *suppress-warnings*
+                         (throw e)
+                         (do
+                           (log/debug "parse-cnab-field fail! cnab-part: " cnab-part " spec: " spec " exception: " e)
+                           (throw e)))))) 
 
 (defn- dispatch
   [cnab padrao cnab-type]
