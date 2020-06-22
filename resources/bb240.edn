@@ -171,7 +171,7 @@
     :valor_desconto_01
     {:pos [151 165], :picture "9(13)V9(2)", :default 0},
     :identificacao_titulo {:pos [38 57], :picture "X(20)"},
-    :data_vencimento {:pos [78 85], :picture "X(8)"},
+    :data_vencimento {:pos [78 85], :picture "9(8)"},
     :identificacao_distribuicao
     {:pos [62 62], :picture "X(1)", :default ""},
     :identificacao_titulo_empresa
