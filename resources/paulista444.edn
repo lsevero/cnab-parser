@@ -1,0 +1,74 @@
+{:servico "cobranca"
+ :layout "cnab240"
+ :remessa {:header_arquivo {:identificacao_registro {:pos [1 1] :picture "9(1)" :default 0}
+                            :identificacao_arquivo_remessa {:pos [2 2] :picture "9(1)" :default 1}
+                            :literal_remessa {:pos [3 9] :picture "X(7)"}
+                            :codigo_servico {:pos [10 11] :picture "9(2)" :default 1}
+                            :literal_servico {:pos [12 26] :picture "X(15)"}
+                            :codigo_originador {:pos [27 46] :picture "9(20)"}
+                            :nome_originador {:pos [47 76] :picture "X(30)"}
+                            :numero_banco_paulista {:pos [77 79] :picture "9(3)" :default 611}
+                            :nome_banco {:pos [80 94] :picture "X(15)" :default "PAULISTA S.A."}
+                            :data_gravacao_arquivo {:pos [95 100] :picture "9(6)"}
+                            :branco_1 {:pos [101 108] :picture "X(8)"}
+                            :identificacao_sistema {:pos [109 110] :picture "X(2)" :default "MX"}
+                            :numero_sequencial_arquivo {:pos [111 117] :picture "9(7)"}
+                            :branco_2 {:pos [118 438] :picture "X(321)"}
+                            :numero_sequencial_registro {:pos [439 444] :picture "9(6)"}}
+           :detalhes {:segmento_1 {:identificacao_registro {:pos [1 1] :picture "9(1)" :default 1}
+                                   :debito_automatico_cc {:pos [2 20] :picture "X(19)"}
+                                   :coobrigacao {:pos [21 22] :picture "9(2)"}
+                                   :caracteristica_especial {:pos [23 24] :picture "9(2)"}
+                                   :modalidade_operacao {:pos [25 28] :picture "9(4)"}
+                                   :natureza_operacao {:pos [29 30] :picture "9(2)"}
+                                   :origem_recurso {:pos [31 34] :picture "9(4)"}
+                                   :classe_risco_operacao {:pos [35 36] :picture "X(2)"}
+                                   :zeros_1 {:pos [37 37] :picture "9(1)"}
+                                   :numero_controle_participante {:pos [38 62] :picture "X(25)"}
+                                   :numero_banco {:pos [63 65] :picture "9(3)"}
+                                   :zeros_2 {:pos [66 70] :picture "9(5)"}
+                                   :identificacao_titulo_banco {:pos [71 81] :picture "9(11)"}
+                                   :digito_nosso_numero {:pos [82 82] :picture "X(1)"}
+                                   :valor_pago {:pos [83 92] :picture "9(8)V9(2)"}
+                                   :condicao_emissao_papeleta_cobranca {:pos [93 93] :picture "9(1)"}
+                                   :identificacao_papeleta_debito_automatico {:pos [94 94] :picture "X(1)"}
+                                   :data_liquidacao {:pos [95 100] :picture "9(6)"}
+                                   :identificacao_operacao_banco {:pos [101 104] :picture "X(4)"}
+                                   :indicador_rateio_credito {:pos [105 105] :picture "X(1)"}
+                                   :enderecamento_aviso_debito_automatico_cc {:pos [106 106] :picture "9(1)"}
+                                   :branco_1 {:pos [107 108] :picture "X(2)"}
+                                   :identificacao_ocorrencia {:pos [109 110] :picture "9(2)"}
+                                   :numero_documento {:pos [111 120] :picture "X(10)"}
+                                   :data_vencimento_titulo {:pos [121 126] :picture "9(6)"}
+                                   :valor_titulo_face {:pos [127 139] :picture "9(11)V9(2)"}
+                                   :banco_encarregado_cobranca {:pos [140 142] :picture "9(3)"}
+                                   :agencia_depositaria {:pos [143 147] :picture "9(5)"}
+                                   :especie_titulo {:pos [148 149] :picture "9(2)"}
+                                   :identificacao {:pos [150 150] :picture "X(1)"}
+                                   :data_emissao_titulo {:pos [151 156] :picture "9(6)"}
+                                   :primeira_instrucao {:pos [157 158] :picture "9(2)" :default 0}
+                                   :segunda_instrucao {:pos [159 159] :picture "9(1)" :default 0}
+                                   :tipo_pessoa_cedente {:pos [160 161] :picture "X(2)"}
+                                   :zeros_3 {:pos [162 173] :picture "X(12)"}
+                                   :numero_termo_cessao {:pos [174 192] :picture "X(19)"}
+                                   :valor_presente_parcela {:pos [193 205] :picture "9(11)V9(2)"}
+                                   :valor_do_abatimento {:pos [206 218] :picture "9(11)V9(2)"}
+                                   :identificacao_inscricao_sacado {:pos [219 220] :picture "9(2)"}
+                                   :numero_inscricao_sacado {:pos [221 234] :picture "9(14)"}
+                                   :nome_sacado {:pos [235 274] :picture "X(40)"}
+                                   :endereco_sacado {:pos [275 314] :picture "X(40)"}
+                                   :numero_nf_duplicata {:pos [315 323] :picture "X(9)"}
+                                   :numero_serie_nf_duplicata {:pos [324 326] :picture "X(3)"}
+                                   :cep {:pos [327 334] :picture "9(8)"}
+                                   :cedente {:pos [335 394] :picture "X(60)"}
+                                   :chave_nf {:pos [395 438] :picture "X(44)"}
+                                   :numero_sequencial_registro {:pos [439 444] :picture "9(6)"}
+                                   }
+                      }
+           :trailer_arquivo {:identificacao_registro {:pos [1 1] :picture "9(1)"}
+                             :branco {:pos [2 438] :picture "X(437)"}
+                             :numero_sequencial_registro {:pos [439 444] :picture "9(6)"}
+                             }
+           
+           }
+ }

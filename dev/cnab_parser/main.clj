@@ -3,7 +3,8 @@
              [core :refer :all]
              [bb :refer :all]
              [bradesco :refer :all]
-             [itau :refer :all]]
+             [itau :refer :all]
+             [paulista :refer :all]]
             [clojure.pprint :as pp])
   (:gen-class))
 
@@ -22,8 +23,9 @@
 
 (defn -main [& args]
   (let [[path modelo tipo & _] args]
-    (cond (count args)
+    (case (count args)
           3 (binding [*suppress-warnings* true]
               (pp/pprint (parse-cnab (slurp path) (keyword modelo) (keyword tipo))))
           4 (pp/pprint (parse-cnab (slurp path) (keyword modelo) (keyword tipo)))
           (print-help))))
+
