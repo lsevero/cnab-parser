@@ -1,14 +1,8 @@
 # cnab-parser
 
-A Clojure library designed to ... well, that part is up to you.
+Uma biblioteca para parsear cnabs de bancos brasileiros
 
-## Usage
-
-FIXME
-
-## License
-
-Copyright © 2020 FIXME
+[![Clojars Project](https://img.shields.io/clojars/v/cnab-parser.svg)](https://clojars.org/cnab-parser)
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at
