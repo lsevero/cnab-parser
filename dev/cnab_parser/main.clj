@@ -4,6 +4,7 @@
              [bb :refer :all]
              [bradesco :refer :all]
              [itau :refer :all]
+             [santander :refer :all]
              [paulista :refer :all]]
             [clojure.pprint :as pp])
   (:gen-class))
