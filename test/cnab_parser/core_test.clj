@@ -9,7 +9,7 @@
     (let [{{:keys [header_arquivo trailer_arquivo detalhes]} :retorno :as parser} (make-cnab-parser
                                                                                     (-> "itau400.edn"
                                                                                         io/resource
-                                                                                        io/file))] 
+                                                                                        slurp))] 
       (is (true? (and (contains? parser :servico)
                       (contains? parser :versao)
                       (contains? parser :layout)
@@ -53,3 +53,27 @@
       (is (= res 1/3))
       (is (= args [3])))
     (is (nil? (try-args #(/ 1 %) [[0] [0] [0]])))))
+
+(deftest write-cnab-field-test
+  (testing "testando write-cnab-field"
+    (let [^StringBuilder builder (StringBuilder. ^String (apply str (repeat 10 " ")))
+          _ (write-cnab-field builder 12345 {:pos [1 8] :picture "9(8)"})
+          str-builder (.toString builder)]
+      (is (= "00012345  " str-builder))
+      (is (= 10 (count str-builder)))
+      )
+    (let [^StringBuilder builder (StringBuilder. ^String (apply str (repeat 10 " ")))
+          _ (write-cnab-field builder 123.450789 {:pos [1 8] :picture "9(6)V9(2)"})
+          str-builder (.toString builder)]
+      (is (= "00012345  " str-builder) "Arredondando a ultima casa decimal para baixo")
+      (is (= 10 (count str-builder))))
+    (let [^StringBuilder builder (StringBuilder. ^String (apply str (repeat 10 " ")))
+          _ (write-cnab-field builder 123.456789 {:pos [1 8] :picture "9(6)V9(2)"})
+          str-builder (.toString builder)]
+      (is (= "00012346  " str-builder) "Arredondando a ultima casa decimal para cima")
+      (is (= 10 (count str-builder))))
+    (let [^StringBuilder builder (StringBuilder. ^String (apply str (repeat 10 " ")))
+          _ (write-cnab-field builder "teste" {:pos [1 8] :picture "X(8)"})
+          str-builder (.toString builder)]
+      (is (= "   teste  " str-builder))
+      (is (= 10 (count str-builder))))))

@@ -3,6 +3,7 @@
             [clojure.string :as s]
             [clojure.edn :as edn] 
             [clojure.tools.logging :as log]
+            [clojure.string :as str]
             [clojure.test :refer [is]]
             ))
 
@@ -56,6 +57,35 @@
                          (do
                            (log/debug "parse-cnab-field fail! cnab-part: " cnab-part " spec: " spec " exception: " e)
                            (throw e)))))) 
+
+(defn write-cnab-field
+  "Escreve o campo de um cnab para um StringBuilder"
+  [^StringBuilder builder content {picture :picture [^Long begin ^Long end :as pos] :pos :as spec}]
+  {:pre [(is (and (contains? spec :picture)
+                  (contains? spec :pos)))
+         (is (= (- end (dec begin))
+                (apply + (map #(Long/parseLong (% 1)) (re-seq #"\((\d+)\)" picture)))))]}
+    (cond
+      (s/starts-with? picture "9")
+      (if (s/includes? picture "V")
+        (let [[[_ integer-part-size] [_ decimal-part-size]] (re-seq #"\((\d+)\)" picture)
+              longnum (-> 
+                       (str "%." decimal-part-size "f")
+                       (format content)
+                       (str/replace #"\.|," "")
+                       (#(Long/parseLong %)))
+              total-sum (+ (Long/parseLong integer-part-size) (Long/parseLong decimal-part-size))]
+          (.replace builder (long (dec begin)) end (format (str "%0" total-sum "d") longnum)))
+        (let [[[_ integer-part-size]] (re-seq #"\((\d+)\)" picture)]
+          (.replace builder (long (dec begin)) end (format (str "%0" integer-part-size "d") content))))
+      (s/starts-with? picture "X") (let [[[_ size]] (re-seq #"\((\d+)\)" picture)]
+                                     (.replace builder (long (dec begin)) end (format (str "%" size "s") content)))
+      :else (throw (ex-info "Picture não está definido nem como número (9) nem como string (X)"
+                            {:msg "Erro em picture"
+                             :builder builder
+                             :content content
+                             :pos pos
+                             :picture picture}))))
 
 (defn- dispatch
   [cnab padrao cnab-type]
@@ -115,6 +145,59 @@
                      :padrao padrao
                      :cnab-type cnab-type})))) 
 
+(defmulti write-cnab dispatch)
+(defmulti write-cnab-header-arquivo dispatch)
+(defmulti write-cnab-header-lote dispatch)
+(defmulti write-cnab-detalhes dispatch)
+(defmulti write-cnab-trailer-lote dispatch)
+(defmulti write-cnab-trailer-arquivo dispatch)
+
+(defmethod write-cnab :default
+  [cnab padrao cnab-type]
+  (let [error-msg 
+        (str "Não existe implementações de write-cnab para o padrão " 
+             padrao " tipo " cnab-type)]
+    (throw (ex-info error-msg
+                    {:cnab cnab
+                     :padrao padrao
+                     :cnab-type cnab-type}))))
+
+(defmethod write-cnab-header-arquivo :default
+  [cnab padrao cnab-type]
+  (let [error-msg 
+        (str "Não existe implementações de write-cnab-header-arquivo para o padrão "
+             padrao " tipo " cnab-type)]
+    (throw (ex-info error-msg
+                    {:cnab cnab
+                     :padrao padrao
+                     :cnab-type cnab-type}))))
+
+(defmethod write-cnab-header-lote :default
+  [cnab padrao cnab-type]
+  nil)
+
+(defmethod write-cnab-detalhes :default
+  [cnab padrao cnab-type]
+  (let [error-msg (str "Não existe implementações de write-cnab-detalhes para o padrão "
+                       padrao " tipo " cnab-type)]
+    (throw (ex-info error-msg
+                    {:cnab cnab
+                     :padrao padrao
+                     :cnab-type cnab-type}))))
+
+(defmethod write-cnab-trailer-lote :default
+  [cnab padrao cnab-type]
+  nil)
+
+(defmethod write-cnab-trailer-arquivo :default
+  [cnab padrao cnab-type]
+  (let [error-msg 
+        (str "Não existe implementações de write-cnab-trailer-arquivo para o padrão " 
+             padrao " tipo " cnab-type)]
+    (throw (ex-info error-msg
+                    {:cnab cnab
+                     :padrao padrao
+                     :cnab-type cnab-type})))) 
 
 (defn try-fns
   "Receives a list of functions and a list of args and iterate applying each functions to args,
@@ -151,24 +234,4 @@
         :args head})))
   ([f args]
    (try-args f args 0)))
-
-(comment
-  (type (gensym))
-  (do
-    (def itau (spit (io/file "/tmp/itau400.edn") (yaml/from-file "/home/severo/Documentos/cnab-layouts/config/itau/cnab400/cobranca.yml") ))
-    (apply merge (:remessa itau)))
-  (def detalhes (get-in  itau [:remessa :detalhes]))
-  (def header (get-in itau [:remessa :header_arquivo]))
-  (def spec {:header header
-             :detalhes (apply merge (map (fn [[ k v]] v) detalhes))})
-  (make-cnab-parser "/home/severo/Documentos/cnab-layouts/c")
-  (type (make-cnab-parser (-> "itau400.edn" io/resource io/file)))
-
-  (->> (partition 400 (s/replace (slurp "/home/severo/Documentos/cnab-exemplo/CN14020A.RET") #"\r|\n" ""))
-       (map (partial apply str))
-       )
-
-  (parse-cnab-field "00012345" {:pos [1 8] :picture "9(6)V9(2)"})
-
-  )
 
