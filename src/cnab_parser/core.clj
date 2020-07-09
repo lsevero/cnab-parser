@@ -60,32 +60,39 @@
 
 (defn write-cnab-field
   "Escreve o campo de um cnab para um StringBuilder"
-  [^StringBuilder builder content {picture :picture [^Long begin ^Long end :as pos] :pos :as spec}]
+  [^StringBuilder builder content {picture :picture [^Long begin ^Long end :as pos] :pos default :default :as spec}]
   {:pre [(is (and (contains? spec :picture)
                   (contains? spec :pos)))
          (is (= (- end (dec begin))
                 (apply + (map #(Long/parseLong (% 1)) (re-seq #"\((\d+)\)" picture)))))]}
+  (try
     (cond
       (s/starts-with? picture "9")
       (if (s/includes? picture "V")
         (let [[[_ integer-part-size] [_ decimal-part-size]] (re-seq #"\((\d+)\)" picture)
               longnum (-> 
-                       (str "%." decimal-part-size "f")
-                       (format content)
-                       (str/replace #"\.|," "")
-                       (#(Long/parseLong %)))
+                        (str "%." decimal-part-size "f")
+                        (format (or content default 0.0))
+                        (str/replace #"\.|," "")
+                        (#(Long/parseLong %)))
               total-sum (+ (Long/parseLong integer-part-size) (Long/parseLong decimal-part-size))]
           (.replace builder (long (dec begin)) end (format (str "%0" total-sum "d") longnum)))
         (let [[[_ integer-part-size]] (re-seq #"\((\d+)\)" picture)]
-          (.replace builder (long (dec begin)) end (format (str "%0" integer-part-size "d") content))))
+          (.replace builder (long (dec begin)) end (format (str "%0" integer-part-size "d") (or content default 0)))))
       (s/starts-with? picture "X") (let [[[_ size]] (re-seq #"\((\d+)\)" picture)]
-                                     (.replace builder (long (dec begin)) end (format (str "%" size "s") content)))
+                                     (.replace builder (long (dec begin)) end (format (str "%" size "s") (or content default ""))))
       :else (throw (ex-info "Picture não está definido nem como número (9) nem como string (X)"
-                            {:msg "Erro em picture"
+                            {:msg "Erro"
                              :builder builder
                              :content content
-                             :pos pos
-                             :picture picture}))))
+                             :spec spec
+                             })))
+    (catch Exception e
+      (throw (let [error-map {:msg "Erro"
+                              :ex e
+                              :builder builder
+                              :content content
+                              :spec spec}] (ex-info (str "Erro de formatação" error-map) error-map))))))
 
 (defn- dispatch
   [cnab padrao cnab-type]

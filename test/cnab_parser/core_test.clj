@@ -60,8 +60,7 @@
           _ (write-cnab-field builder 12345 {:pos [1 8] :picture "9(8)"})
           str-builder (.toString builder)]
       (is (= "00012345  " str-builder))
-      (is (= 10 (count str-builder)))
-      )
+      (is (= 10 (count str-builder))))
     (let [^StringBuilder builder (StringBuilder. ^String (apply str (repeat 10 " ")))
           _ (write-cnab-field builder 123.450789 {:pos [1 8] :picture "9(6)V9(2)"})
           str-builder (.toString builder)]
@@ -76,4 +75,34 @@
           _ (write-cnab-field builder "teste" {:pos [1 8] :picture "X(8)"})
           str-builder (.toString builder)]
       (is (= "   teste  " str-builder))
+      (is (= 10 (count str-builder))))
+    (let [^StringBuilder builder (StringBuilder. ^String (apply str (repeat 10 " ")))
+          _ (write-cnab-field builder nil {:pos [1 8] :picture "X(8)" :default "default"})
+          str-builder (.toString builder)]
+      (is (= " default  " str-builder))
+      (is (= 10 (count str-builder))))
+    (let [^StringBuilder builder (StringBuilder. ^String (apply str (repeat 10 " ")))
+          _ (write-cnab-field builder nil {:pos [1 8] :picture "9(8)" :default 1})
+          str-builder (.toString builder)]
+      (is (= "00000001  " str-builder))
+      (is (= 10 (count str-builder))))
+    (let [^StringBuilder builder (StringBuilder. ^String (apply str (repeat 10 " ")))
+          _ (write-cnab-field builder nil {:pos [1 8] :picture "9(6)V9(2)" :default 1.23})
+          str-builder (.toString builder)]
+      (is (= "00000123  " str-builder))
+      (is (= 10 (count str-builder))))
+    (let [^StringBuilder builder (StringBuilder. ^String (apply str (repeat 10 " ")))
+          _ (write-cnab-field builder nil {:pos [1 8] :picture "9(8)"})
+          str-builder (.toString builder)]
+      (is (= "00000000  " str-builder))
+      (is (= 10 (count str-builder))))
+    (let [^StringBuilder builder (StringBuilder. ^String (apply str (repeat 10 " ")))
+          _ (write-cnab-field builder nil {:pos [1 8] :picture "9(6)V9(2)"})
+          str-builder (.toString builder)]
+      (is (= "00000000  " str-builder))
+      (is (= 10 (count str-builder))))
+    (let [^StringBuilder builder (StringBuilder. ^String (apply str (repeat 10 " ")))
+          _ (write-cnab-field builder nil {:pos [1 8] :picture "X(8)"})
+          str-builder (.toString builder)]
+      (is (= "          " str-builder))
       (is (= 10 (count str-builder))))))
