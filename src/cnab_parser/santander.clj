@@ -123,7 +123,7 @@
 (defmethod write-cnab-header-arquivo [:santander240 :retorno]
   [cnab padrao cnab-type]
   (let [{{:keys [header_arquivo]} :retorno} santander240-parser
-        ^StringBuilder builder (StringBuilder. (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
+        ^StringBuilder builder (StringBuilder. ^String (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
     (doseq [[k spec] header_arquivo]
       (write-cnab-field builder (k cnab) spec))
     (.toString builder)))
@@ -131,7 +131,7 @@
 (defmethod write-cnab-header-lote [:santander240 :retorno]
   [cnab padrao cnab-type]
   (let [{{:keys [header_lote]} :retorno} santander240-parser
-        ^StringBuilder builder (StringBuilder. (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
+        ^StringBuilder builder (StringBuilder. ^String (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
     (doseq [[k spec] header_lote]
       (write-cnab-field builder (k cnab) spec))
     (.toString builder)))
@@ -141,7 +141,7 @@
   (let [{{:keys [detalhes]} :retorno} santander240-parser]
     (letfn [(write-segmento [detalhe segmento]
               (let [{{:keys [detalhes]} :retorno} santander240-parser
-                    ^StringBuilder builder (StringBuilder. (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
+                    ^StringBuilder builder (StringBuilder. ^String (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
                 (doseq [[k spec] (segmento detalhes)]
                   (write-cnab-field builder (k detalhe) spec))
                 (.toString builder)))]
@@ -152,7 +152,7 @@
 (defmethod write-cnab-trailer-lote [:santander240 :retorno]
   [cnab padrao cnab-type]
   (let [{{:keys [trailer_lote]} :retorno} santander240-parser
-        ^StringBuilder builder (StringBuilder. (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
+        ^StringBuilder builder (StringBuilder. ^String (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
     (doseq [[k spec] trailer_lote]
       (write-cnab-field builder (k cnab) spec))
     (.toString builder)))
@@ -160,7 +160,7 @@
 (defmethod write-cnab-trailer-arquivo [:santander240 :retorno]
   [cnab padrao cnab-type]
   (let [{{:keys [trailer_arquivo]} :retorno} santander240-parser
-        ^StringBuilder builder (StringBuilder. (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
+        ^StringBuilder builder (StringBuilder. ^String (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
     (doseq [[k spec] trailer_arquivo]
       (write-cnab-field builder (k cnab) spec))
     (.toString builder)))
@@ -179,11 +179,10 @@
                       :trailer_lote {}
                       :trailer_arquivo {}} :santander240 :retorno))
 
-
 (defmethod write-cnab-header-arquivo [:santander240 :remessa]
   [cnab padrao cnab-type]
   (let [{{:keys [header_arquivo]} :remessa} santander240-parser
-        ^StringBuilder builder (StringBuilder. (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
+        ^StringBuilder builder (StringBuilder. ^String (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
     (doseq [[k spec] header_arquivo]
       (write-cnab-field builder (k cnab) spec))
     (.toString builder)))
@@ -191,7 +190,7 @@
 (defmethod write-cnab-header-lote [:santander240 :remessa]
   [cnab padrao cnab-type]
   (let [{{:keys [header_lote]} :remessa} santander240-parser
-        ^StringBuilder builder (StringBuilder. (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
+        ^StringBuilder builder (StringBuilder. ^String (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
     (doseq [[k spec] header_lote]
       (write-cnab-field builder (k cnab) spec))
     (.toString builder)))
@@ -201,7 +200,7 @@
   (let [{{:keys [detalhes]} :remessa} santander240-parser]
     (letfn [(write-segmento [detalhe segmento]
               (let [{{:keys [detalhes]} :remessa} santander240-parser
-                    ^StringBuilder builder (StringBuilder. (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
+                    ^StringBuilder builder (StringBuilder. ^String (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
                 (doseq [[k spec] (segmento detalhes)]
                   (write-cnab-field builder (k detalhe) spec))
                 (.toString builder)))]
@@ -212,7 +211,7 @@
 (defmethod write-cnab-trailer-lote [:santander240 :remessa]
   [cnab padrao cnab-type]
   (let [{{:keys [trailer_lote]} :remessa} santander240-parser
-        ^StringBuilder builder (StringBuilder. (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
+        ^StringBuilder builder (StringBuilder. ^String (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
     (doseq [[k spec] trailer_lote]
       (write-cnab-field builder (k cnab) spec))
     (.toString builder)))
@@ -220,7 +219,7 @@
 (defmethod write-cnab-trailer-arquivo [:santander240 :remessa]
   [cnab padrao cnab-type]
   (let [{{:keys [trailer_arquivo]} :remessa} santander240-parser
-        ^StringBuilder builder (StringBuilder. (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
+        ^StringBuilder builder (StringBuilder. ^String (apply str (conj (into [] (repeat 240 " ")) "\r\n")))]
     (doseq [[k spec] trailer_arquivo]
       (write-cnab-field builder (k cnab) spec))
     (.toString builder)))

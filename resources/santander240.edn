@@ -270,7 +270,8 @@
     :tipo_registro {:pos [8 8], :picture "9(1)", :default 3},
     :numero_documento_cobranca {:pos [55 69], :picture "X(15)"},
     :numero_registro {:pos [9 13], :picture "9(5)"},
-    :codigo_banco {:pos [93 95], :picture "9(3)"},
+    :codigo_banco {:pos [1 3], :picture "9(3)" :default 33},
+    :codigo_banco_cobradora_recebedora {:pos [93 95], :picture "9(3)"},
     :agencia_cobradora_recebedora {:pos [96 99], :picture "9(4)"},
     :identificacao_rejeicoes {:pos [209 218], :picture "9(10)"},
     :lote_servico {:pos [4 7], :picture "9(4)"},
@@ -306,5 +307,6 @@
     :valor_pago {:pos [78 92], :picture "9(13)V9(2)"},
     :outras_despesas {:pos [108 122], :picture "9(13)V9(2)"},
     :juros_multa_encargos {:pos [18 32], :picture "9(13)V9(2)"},
-    :data_ocorrencia {:pos [158 165], :picture "9(8)"},
+    :data_ocorrencia {:pos [138 145], :picture "9(8)"},
+    :data_ocorrencia_pagador {:pos [158 165], :picture "9(8)"},
     :valor_liquido {:pos [93 107], :picture "9(13)V9(2)"}}}}}
