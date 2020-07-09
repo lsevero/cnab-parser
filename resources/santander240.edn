@@ -75,7 +75,7 @@
     :forma_cadastro_titulo {:pos [59 59], :picture "9(1)"},
     :numero_registro {:pos [9 13], :picture "9(5)"},
     :agencia {:pos [18 21], :picture "9(4)"},
-    :codigo_banco {:pos [1 3], :picture "9(1)", :default 33},
+    :codigo_banco {:pos [1 3], :picture "9(3)", :default 33},
     :codigo_protesto {:pos [221 221], :picture "9(1)"},
     :exclusivo_banco_06 {:pos [225 225], :picture "9(1)", :default 0},
     :lote_servico {:pos [4 7], :picture "9(4)"},
@@ -109,7 +109,7 @@
     :codigo_juros_mora {:pos [118 118], :picture "9(1)"},
     :codigo_desconto_01 {:pos [142 142], :picture "9(1)", :default 0},
     :numero_documento {:pos [63 77], :picture "X(15)"},
-    :agencia_cobranca {:pos [101 104], :picture "9(5)"}},
+    :agencia_cobranca {:pos [101 104], :picture "9(4)"}},
    :segmento_q
    {:codigo_movimento {:pos [16 17], :picture "9(2)"},
     :numero_parcela {:pos [213 215], :picture "9(3)", :default 1},
