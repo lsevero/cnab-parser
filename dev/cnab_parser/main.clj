@@ -44,7 +44,7 @@
                                                    :multi-line? true
                                                    :editable? false
                                                    :rows 40
-                                                   :columns 40)
+                                                   :columns 80)
                                  cnab (sc/combobox :id :cnab :model ["itau400" "bb240" "bb400" "bradesco240" "paulista444" "santander240"])
                                  tipo (sc/combobox :id :tipo :model ["remessa" "retorno"])
                                  output (sc/combobox :id :output :model ["json" "edn"])
