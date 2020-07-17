@@ -33,51 +33,53 @@
 
 (defn- show-frame
   []
-  (sc/invoke-later
-    (sc/show!
-      (sc/pack!
-        (sc/frame :title "Cnab Parser"
-                  :minimum-size [500 :by 500]
-                  :size [800 :by 800]
-                  :resizable? true
-                  :content (let [textarea (sc/text :text ""
-                                                   :multi-line? true
-                                                   :editable? false
-                                                   :rows 40
-                                                   :columns 80)
-                                 cnab (sc/combobox :id :cnab :model ["itau400" "bb240" "bb400" "bradesco240" "paulista444" "santander240"])
-                                 tipo (sc/combobox :id :tipo :model ["remessa" "retorno"])
-                                 output (sc/combobox :id :output :model ["json" "edn"])
-                                 arquivo (sc/text :text "Clique aqui"
-                                                  :editable? false
-                                                  :listen [:mouse-clicked #(sc/text! % (.getAbsolutePath ^File (s-file/choose-file :type :open
-                                                                                                                                   :multi? false
-                                                                                                                                   :remember-directory? true)))])]
-                             (sc/scrollable
-                               (sf/forms-panel 
-                                 "pref"
-                                 :default-dialog-border? true
-                                 :items [(sf/separator "Opções do cnab")
-                                         "cnab:" cnab 
-                                         "tipo:" tipo 
-                                         (sf/next-line)
-                                         "output:" output
-                                         "arquivo:" arquivo
-                                         (sf/next-line)
-                                         (sc/button :text "Parsear!"
-                                                    :listen [:mouse-clicked (fn [e]
-                                                                              (try
-                                                                                (sc/text! textarea 
-                                                                                          (let [parsed (into {} (parse-cnab (-> arquivo sc/value slurp)
-                                                                                                                            (-> cnab sc/value keyword) 
-                                                                                                                            (-> tipo sc/value keyword)))]
-                                                                                            (if (= "json" (sc/value output))
-                                                                                              (json/generate-string parsed {:pretty true})
-                                                                                              (with-out-str (pp/pprint parsed)))))
-                                                                                (catch Exception ex (sc/alert e "Cnab não válido para o formato"))))])
-                                         (sf/next-line)
-                                         (sf/separator)
-                                         (sc/scrollable textarea)]))))))))
+  (-> 
+    (sc/frame :title "Cnab Parser"
+              :minimum-size [500 :by 500]
+              :size [800 :by 800]
+              :resizable? true
+              :on-close :exit
+              :content (let [textarea (sc/text :text ""
+                                               :multi-line? true
+                                               :editable? false
+                                               :rows 40
+                                               :columns 80)
+                             cnab (sc/combobox :id :cnab :model ["itau400" "bb240" "bb400" "bradesco240" "paulista444" "santander240"])
+                             tipo (sc/combobox :id :tipo :model ["remessa" "retorno"])
+                             output (sc/combobox :id :output :model ["json" "edn"])
+                             arquivo (sc/text :text "Clique aqui"
+                                              :editable? false
+                                              :listen [:mouse-clicked #(sc/text! % (.getAbsolutePath ^File (s-file/choose-file :type :open
+                                                                                                                               :multi? false
+                                                                                                                               :remember-directory? true)))])]
+                         (sc/scrollable
+                           (sf/forms-panel 
+                             "pref"
+                             :default-dialog-border? true
+                             :items [(sf/separator "Opções do cnab")
+                                     "cnab:" cnab 
+                                     "tipo:" tipo 
+                                     (sf/next-line)
+                                     "output:" output
+                                     "arquivo:" arquivo
+                                     (sf/next-line)
+                                     (sc/button :text "Parsear!"
+                                                :listen [:mouse-clicked (fn [e]
+                                                                          (try
+                                                                            (sc/text! textarea 
+                                                                                      (let [parsed (into {} (parse-cnab (-> arquivo sc/value slurp)
+                                                                                                                        (-> cnab sc/value keyword) 
+                                                                                                                        (-> tipo sc/value keyword)))]
+                                                                                        (if (= "json" (sc/value output))
+                                                                                          (json/generate-string parsed {:pretty true})
+                                                                                          (with-out-str (pp/pprint parsed)))))
+                                                                            (catch Exception ex (sc/alert e "Cnab não válido para o formato"))))])
+                                     (sf/next-line)
+                                     (sf/separator)
+                                     (sc/scrollable textarea)]))))
+    sc/pack!
+    sc/show!
+    sc/invoke-later))
 
 (defn -main [& args]
   (let [[path modelo tipo & _] args]
