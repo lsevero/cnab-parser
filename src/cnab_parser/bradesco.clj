@@ -7,6 +7,10 @@
   (make-cnab-parser (-> "bradesco240.edn"
                         io/resource
                         slurp)))
+(def ^:const ^:private bradesco400-parser
+  (make-cnab-parser (-> "bradesco400.edn"
+                        io/resource
+                        slurp)))
 
 (defmethod parse-cnab-header-arquivo [:bradesco240 :remessa]
   [cnab padrao cnab-type]
@@ -66,16 +70,8 @@
      :header_lote (parse-cnab-header-lote header-lote padrao cnab-type)
      :detalhes (parse-cnab-detalhes detalhes padrao cnab-type)
      :trailer_lote (parse-cnab-trailer-lote trailer-lote padrao cnab-type)
-     :trailer_arquivo (parse-cnab-trailer-arquivo trailer-arquivo padrao cnab-type)
-     }
-    ))
+     :trailer_arquivo (parse-cnab-trailer-arquivo trailer-arquivo padrao cnab-type)}))
 
-(comment (-> (parse-cnab (slurp "/home/severo/Documentos/cnab-exemplo/bradesco240/RETORNO020301.RET")
-                         :bradesco240
-                         :remessa
-                         )
-             :detalhes
-             ))
 
 (defmethod parse-cnab-header-arquivo [:bradesco240 :retorno]
   [cnab padrao cnab-type]
@@ -131,12 +127,86 @@
      :header_lote (parse-cnab-header-lote header-lote padrao cnab-type)
      :detalhes (parse-cnab-detalhes detalhes padrao cnab-type)
      :trailer_lote (parse-cnab-trailer-lote trailer-lote padrao cnab-type)
-     :trailer_arquivo (parse-cnab-trailer-arquivo trailer-arquivo padrao cnab-type)
-     }
-    ))
-(comment (-> (parse-cnab (slurp "/home/severo/Documentos/cnab-exemplo/bradesco240/RETORNO020301.RET")
-                         :bradesco240
-                         :retorno
-                         )
-             :detalhes
-             ))
+     :trailer_arquivo (parse-cnab-trailer-arquivo trailer-arquivo padrao cnab-type)}))
+
+(defmethod parse-cnab-header-arquivo [:bradesco400 :remessa]
+  [cnab padrao cnab-type]
+  (let [{{:keys [header_arquivo]} :remessa} bradesco400-parser]
+    (into {} (map (fn [[k spec]] [k (parse-cnab-field cnab spec)]) header_arquivo))))
+
+(defmethod parse-cnab-detalhes [:bradesco400 :remessa]
+  [cnabs padrao cnab-type]
+  (let [{{{:keys [segmento_1 segmento_2 segmento_3 segmento_7] :as detalhes} :detalhes} :remessa} bradesco400-parser]
+    (letfn [(parse-detalhe [cnab map-spec]
+              (into {} (map (fn [[k spec]] [k (parse-cnab-field cnab spec)]) map-spec)))
+            (try-parse [cnab-unit]
+              (try-args parse-detalhe [[cnab-unit segmento_1]
+                                       [cnab-unit segmento_2]
+                                       [cnab-unit segmento_3]
+                                       [cnab-unit segmento_7]]))]
+      (map #(let [{:keys [args-pos args res] :as td} (try-parse %)]
+              (case (long args-pos)
+                0 {:segmento_1 res}
+                1 {:segmento_2 res}
+                2 {:segmento_3 res}
+                3 {:segmento_7 res}
+                {:error {:cnab %}}
+                )) cnabs))))
+
+(defmethod parse-cnab-trailer-arquivo [:bradesco400 :remessa]
+  [cnab padrao cnab-type]
+  (let [{{:keys [trailer_arquivo]} :remessa} bradesco400-parser]
+    (into {} (map (fn [[k spec]] [k (parse-cnab-field cnab spec)]) trailer_arquivo))))
+
+(defmethod parse-cnab [:bradesco400 :remessa]
+  [cnab padrao cnab-type]
+  (let [[header & detalhes_trailer] (split-cnab (if (string? cnab)
+                                                  cnab
+                                                  (slurp cnab)) 400)
+        {:keys [retorno]} bradesco400-parser
+        detalhes (butlast detalhes_trailer)
+        trailer (last detalhes_trailer)]
+    {:header_arquivo (parse-cnab-header-arquivo header padrao cnab-type)
+     :detalhes (parse-cnab-detalhes detalhes padrao cnab-type)
+     :trailer_arquivo (parse-cnab-trailer-arquivo trailer padrao cnab-type)}))
+
+(defmethod parse-cnab-header-arquivo [:bradesco400 :retorno]
+  [cnab padrao cnab-type]
+  (let [{{:keys [header_arquivo]} :retorno} bradesco400-parser]
+    (into {} (map (fn [[k spec]] [k (parse-cnab-field cnab spec)]) header_arquivo))))
+
+
+(defmethod parse-cnab-detalhes [:bradesco400 :retorno]
+  [cnabs padrao cnab-type]
+  (let [{{{:keys [segmento_1 segmento_3] :as detalhes} :detalhes} :retorno} bradesco400-parser]
+    (letfn [(parse-detalhe [cnab map-spec]
+              (into {} (map (fn [[k spec]] [k (parse-cnab-field cnab spec)]) map-spec)))
+            (try-parse [cnab-unit]
+              (try-args parse-detalhe [[cnab-unit segmento_1]
+                                       [cnab-unit segmento_3]]))]
+      (map #(let [{:keys [args-pos args res] :as td} (try-parse %)]
+              (case (long args-pos)
+                0 {:segmento_1 res}
+                1 {:segmento_3 res}
+                {:error {:cnab %}}
+                )) cnabs))))
+
+(defmethod parse-cnab-trailer-arquivo [:bradesco400 :retorno]
+  [cnab padrao cnab-type]
+  (let [{{:keys [trailer_arquivo]} :retorno} bradesco400-parser]
+    (into {} (map (fn [[k spec]] [k (parse-cnab-field cnab spec)]) trailer_arquivo))))
+
+(defmethod parse-cnab [:bradesco400 :retorno]
+  [cnab padrao cnab-type]
+  (let [[header & detalhes_trailer] (split-cnab (if (string? cnab)
+                                                  cnab
+                                                  (slurp cnab)) 400)
+        {:keys [retorno]} bradesco400-parser
+        detalhes (butlast detalhes_trailer)
+        trailer (last detalhes_trailer)]
+    {:header_arquivo (parse-cnab-header-arquivo header padrao cnab-type)
+     :detalhes (parse-cnab-detalhes detalhes padrao cnab-type)
+     :trailer_arquivo (parse-cnab-trailer-arquivo trailer padrao cnab-type)}))
+(comment (-> (parse-cnab (slurp "/home/severo/Documentos/cnab-exemplo/bradesco400/Retorno001020701__3_CORRIGIDO.txt")
+                         :bradesco400
+                         :retorno) :detalhes))
