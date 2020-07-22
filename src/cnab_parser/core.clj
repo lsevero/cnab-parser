@@ -208,15 +208,18 @@
 
 (defn try-fns
   "Receives a list of functions and a list of args and iterate applying each functions to args,
-  if the function throws an Exception, try the next one. Returns nil if all functions raises a exception."
+  if the function throws an Exception, try the next one. Returns a map with :fn-pos Long/MIN_VALUE if all functions raises a exception. "
   ([fns args ^long n]
    (let [[head & tail] fns
          random-sym (gensym)
          ans (try (apply head args)
                   (catch Exception e random-sym))]
      (if (= ans random-sym)
-       (when-not (empty? tail)
-         (recur tail args (inc n)))
+       (if-not (empty? tail)
+         (recur tail args (inc n))
+         {:error "no matching function"
+          :args args
+          :fn-pos Long/MIN_VALUE})
        {:res ans
         :fn head
         :fn-pos n
@@ -226,15 +229,18 @@
 
 (defn try-args
   "Receives a function and a list of list of args and iterate applying the function to each args,
-  if the function throws an Exception, try the next one. Returns nil if all functions raises a exception."
+  if the function throws an Exception, try the next one. Returns a map with :args-pos Long/MIN_VALUE if all functions raises a exception."
   ([f args ^long n]
    (let [[head & tail] args
          random-sym (gensym)
          ans (try (apply f head)
                   (catch Exception e random-sym))]
      (if (= ans random-sym)
-       (when-not (empty? tail)
-         (recur f tail (inc n)))
+       (if-not (empty? tail)
+         (recur f tail (inc n))
+         {:error "no matching argument"
+          :fn f
+          :args-pos Long/MIN_VALUE})
        {:res ans
         :fn f
         :args-pos n
