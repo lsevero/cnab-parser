@@ -219,8 +219,7 @@
          (recur tail args (inc n))
          {:error "no matching function"
           :args args
-          :fn-pos Long/MIN_VALUE}
-         )
+          :fn-pos Long/MIN_VALUE})
        {:res ans
         :fn head
         :fn-pos n
