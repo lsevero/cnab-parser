@@ -1,5 +1,5 @@
 {:servico "cobranca",
- :versao "02",
+ :versao "09",
  :layout "cnab240",
  :remessa
  {:header_arquivo
@@ -383,7 +383,7 @@
     :valor_tarifa_custas {:pos [199 213], :picture "9(13)V9(2)"},
     :tipo_inscricao {:pos [133 133], :picture "9(1)"},
     :numero_contrato_operacao_credito
-    {:pos [189 198], :picture "9(10)"},
+    {:pos [189 198], :picture "X(10)"},;era "9(10)"
     :agencia_mantenedora_conta {:pos [18 22], :picture "9(5)"},
     :numero_banco {:pos [97 99], :picture "9(3)"},
     :codigo_carteira {:pos [58 58], :picture "9(1)"},
@@ -402,7 +402,7 @@
     :verificador_agencia_conta {:pos [37 37], :picture "9(1)"},
     :numero_conta {:pos [24 35], :picture "9(12)"},
     :valor_nominal {:pos [82 96], :picture "9(13)V9(2)"},
-    :verificador_agencia_mantenedora {:pos [23 23], :picture "9(1)"},
+    :verificador_agencia_mantenedora {:pos [23 23], :picture "X(1)"},;era "9(10)"
     :numero_inscricao {:pos [134 148], :picture "9(15)"},
     :identificacao_titulo {:pos [38 57], :picture "X(20)"},
     :data_vencimento {:pos [74 81], :picture "9(8)"},

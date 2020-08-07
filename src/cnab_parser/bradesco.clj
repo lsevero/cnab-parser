@@ -89,14 +89,14 @@
     (letfn [(parse-detalhe [cnab map-spec]
               (into {} (map (fn [[k spec]] [k (parse-cnab-field cnab spec)]) map-spec)))
             (try-parse [cnab-unit]
-              (try-args parse-detalhe [[cnab-unit segmento_t]
-                                       [cnab-unit segmento_u]
+              (try-args parse-detalhe [[cnab-unit segmento_u]
+                                       [cnab-unit segmento_t]
                                        [cnab-unit segmento_y01]
                                        [cnab-unit segmento_y50]]))]
       (map #(let [{:keys [args-pos args res] :as td} (try-parse %)]
               (case (long args-pos)
-                0 {:segmento_t res}
-                1 {:segmento_u res}
+                0 {:segmento_u res}
+                1 {:segmento_t res}
                 2 {:segmento_y01 res}
                 3 {:segmento_y50 res}
                 {:error {:cnab %}}
