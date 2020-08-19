@@ -1,0 +1,35 @@
+{:servico "cobranca"
+ :versao "08"
+ :layout "cnab400"
+ :remessa {:header_arquivo {:codigo_registro {:pos [1 1] :picture "9(1)" :default 0}
+                            :codigo_remessa {:pos [2 2] :picture "9(1)" :default 1}
+                            :literal_remessa {:pos [3 9] :picture "X(7)" :default "REMESSA"}
+                            :codigo_servico {:pos [10 11] :picture "9(2)" :default 1}
+                            :literal_servico {:pos [12 26] :picture "X(15)" :default "BRADESCO"}
+                            :cnpj_originador {:pos [27 46] :picture "X(20)"}
+                            :nome_originador {:pos [47 76] :picture "X(30)"}
+                            :codigo_banco {:pos [77 79] :picture "9(3)" :default 237}
+                            :nome_banco {:pos [80 94] :picture "X(15)" :default "BRADESCO"}
+                            :data_gravacao_arquivo {:pos [95 100] :picture "9(6)"}
+                            ;[101 108] ??????????
+                            :identificacao_sistema {:pos [109 117] :picture "X(9)" :default "MX0000001"}
+                            ;[118 395] ??????????
+                            :sequencial_registro {:pos [395 400] :picture "9(6)"}
+                            ;[401 444] ??????????
+                            }
+           :detalhes {:segmento_1 {;[1 110] ????????
+                                   :numero_documento {:pos [111 120] :picture "9(10)"}
+                                   :data_vencimento {:pos [121 126] :picture "9(6)"}
+                                   :valor_titulo {:pos [127 139] :picture "9(13)"}
+                                   ;[140 147] ???????
+                                   :especie_doc {:pos [148 149] :picture "9(2)" :default 1}
+                                   :identificacao {:pos [150 150] :picture "X(1)" :default "N"}
+                                   :data_emissao_titulo {:pos [151 156] :picture "9(6)"}
+                                   :numero_nota_fiscal {:pos [157 166] :picture "X(10)"}
+                                   :tipo_inscricao_sacado {:pos [219 220] :picture "9(2)" :default 2}
+                                   :cnpj_sacado {:pos [221 234] :picture "9(14)"}
+                                   :nome_sacado {:pos [235 274] :picture "X(40)"}
+                                   ;[275 400] ?????????
+                                   :chave_acesso {:pos [401 444] :picture "9(44)"}
+                                   }}
+           :trailer_arquivo {:NAO_IMPLEMENTADO!!! {:pos [1 444] :picture "X(444)"}}}}
